@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2017-12-28T22:24:12+08:00</updated><id>http://0.0.0.0:4000/</id><title type="html">Jevic</title><subtitle>前路漫漫,忆往昔......</subtitle><author><name>Jevic</name></author><entry><title type="html">docker registry</title><link href="http://0.0.0.0:4000/2017/12/28/docker-registry/" rel="alternate" type="text/html" title="docker registry" /><published>2017-12-28T22:16:52+08:00</published><updated>2017-12-28T22:16:52+08:00</updated><id>http://0.0.0.0:4000/2017/12/28/docker-registry</id><content type="html" xml:base="http://0.0.0.0:4000/2017/12/28/docker-registry/">&lt;h2 id=&quot;docker-registry&quot;&gt;docker registry&lt;/h2&gt;
-
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">docker registry</summary></entry><entry><title type="html">CI/CD 之 GitLab CI</title><link href="http://0.0.0.0:4000/2017/11/28/ci-cd-gitlab-ci/" rel="alternate" type="text/html" title="CI/CD 之 GitLab CI" /><published>2017-11-28T17:43:23+08:00</published><updated>2017-11-28T17:43:23+08:00</updated><id>http://0.0.0.0:4000/2017/11/28/ci-cd-gitlab-ci</id><content type="html" xml:base="http://0.0.0.0:4000/2017/11/28/ci-cd-gitlab-ci/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://0.0.0.0/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0/" rel="alternate" type="text/html" /><updated>2017-12-29T00:05:18+08:00</updated><id>http://0.0.0.0/</id><title type="html">Jevic</title><subtitle>前路漫漫,忆往昔......</subtitle><author><name>Jevic</name></author><entry><title type="html">CI/CD 之 GitLab CI</title><link href="http://0.0.0.0/2017/11/28/ci-cd-gitlab-ci/" rel="alternate" type="text/html" title="CI/CD 之 GitLab CI" /><published>2017-11-28T17:43:23+08:00</published><updated>2017-11-28T17:43:23+08:00</updated><id>http://0.0.0.0/2017/11/28/ci-cd-gitlab-ci</id><content type="html" xml:base="http://0.0.0.0/2017/11/28/ci-cd-gitlab-ci/">&lt;blockquote&gt;
   &lt;p&gt;接着上篇文章整理，这篇文章主要介绍一下 GitLab CI 相关功能，并通过 GitLab CI 实现自动化构建项目；项目中所用的示例项目已经上传到了 &lt;a href=&quot;https://github.com/mritd/GitLabCI-TestProject&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -456,7 +454,7 @@ CMD &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&
 
 &lt;p&gt;一切重要的敏感信息，如账户密码等，不要写到 CI 配置中，直接放到 GitLab 的环境变量中；GitLab 会保证将其推送到远端 Runner 的 SHELL 变量中&lt;/p&gt;
 
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">接着上篇文章整理，这篇文章主要介绍一下 GitLab CI 相关功能，并通过 GitLab CI 实现自动化构建项目；项目中所用的示例项目已经上传到了 GitHub</summary></entry><entry><title type="html">ohmydocker 镜像加速</title><link href="http://0.0.0.0:4000/2017/11/14/ohmydocker/" rel="alternate" type="text/html" title="ohmydocker 镜像加速" /><published>2017-11-14T14:43:30+08:00</published><updated>2017-11-14T14:43:30+08:00</updated><id>http://0.0.0.0:4000/2017/11/14/ohmydocker</id><content type="html" xml:base="http://0.0.0.0:4000/2017/11/14/ohmydocker/">&lt;blockquote&gt;
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">接着上篇文章整理，这篇文章主要介绍一下 GitLab CI 相关功能，并通过 GitLab CI 实现自动化构建项目；项目中所用的示例项目已经上传到了 GitHub</summary></entry><entry><title type="html">ohmydocker 镜像加速</title><link href="http://0.0.0.0/2017/11/14/ohmydocker/" rel="alternate" type="text/html" title="ohmydocker 镜像加速" /><published>2017-11-14T14:43:30+08:00</published><updated>2017-11-14T14:43:30+08:00</updated><id>http://0.0.0.0/2017/11/14/ohmydocker</id><content type="html" xml:base="http://0.0.0.0/2017/11/14/ohmydocker/">&lt;blockquote&gt;
   &lt;p&gt;国外一直有台服务器闲置，准备用来做 Docker 镜像下载加速，写了个小工具打成了镜像放了出来 😀&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -487,7 +485,7 @@ CMD &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&
 
 &lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/zhifubao.png&quot; alt=&quot;支付宝&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">国外一直有台服务器闲置，准备用来做 Docker 镜像下载加速，写了个小工具打成了镜像放了出来 😀</summary></entry><entry><title type="html">CI/CD 之 Dockerfile</title><link href="http://0.0.0.0:4000/2017/11/12/ci-cd-dockerfile/" rel="alternate" type="text/html" title="CI/CD 之 Dockerfile" /><published>2017-11-12T22:46:53+08:00</published><updated>2017-11-12T22:46:53+08:00</updated><id>http://0.0.0.0:4000/2017/11/12/ci-cd-dockerfile</id><content type="html" xml:base="http://0.0.0.0:4000/2017/11/12/ci-cd-dockerfile/">&lt;blockquote&gt;
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">国外一直有台服务器闲置，准备用来做 Docker 镜像下载加速，写了个小工具打成了镜像放了出来 😀</summary></entry><entry><title type="html">CI/CD 之 Dockerfile</title><link href="http://0.0.0.0/2017/11/12/ci-cd-dockerfile/" rel="alternate" type="text/html" title="CI/CD 之 Dockerfile" /><published>2017-11-12T22:46:53+08:00</published><updated>2017-11-12T22:46:53+08:00</updated><id>http://0.0.0.0/2017/11/12/ci-cd-dockerfile</id><content type="html" xml:base="http://0.0.0.0/2017/11/12/ci-cd-dockerfile/">&lt;blockquote&gt;
   &lt;p&gt;最近准备整理一下关于 CI/CD 的相关文档，写一个关于 CI/CD 的系列文章，这篇先从最基本的 Dockerfile 书写开始，本系列文章默认读者已经熟悉 Docker、Kubernetes 相关工具&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -636,7 +634,7 @@ CMD &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&
 
 &lt;p&gt;关于 Dockerfile 方面暂时总结出这些，可能也会有遗漏，待后续补充吧；同时欢迎各位提出相关修改意见 😊&lt;/p&gt;
 
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">最近准备整理一下关于 CI/CD 的相关文档，写一个关于 CI/CD 的系列文章，这篇先从最基本的 Dockerfile 书写开始，本系列文章默认读者已经熟悉 Docker、Kubernetes 相关工具</summary></entry><entry><title type="html">Teleport 跳板机部署</title><link href="http://0.0.0.0:4000/2017/11/09/set-up-teleport/" rel="alternate" type="text/html" title="Teleport 跳板机部署" /><published>2017-11-09T16:47:51+08:00</published><updated>2017-11-09T16:47:51+08:00</updated><id>http://0.0.0.0:4000/2017/11/09/set-up-teleport</id><content type="html" xml:base="http://0.0.0.0:4000/2017/11/09/set-up-teleport/">&lt;blockquote&gt;
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">最近准备整理一下关于 CI/CD 的相关文档，写一个关于 CI/CD 的系列文章，这篇先从最基本的 Dockerfile 书写开始，本系列文章默认读者已经熟悉 Docker、Kubernetes 相关工具</summary></entry><entry><title type="html">Teleport 跳板机部署</title><link href="http://0.0.0.0/2017/11/09/set-up-teleport/" rel="alternate" type="text/html" title="Teleport 跳板机部署" /><published>2017-11-09T16:47:51+08:00</published><updated>2017-11-09T16:47:51+08:00</updated><id>http://0.0.0.0/2017/11/09/set-up-teleport</id><content type="html" xml:base="http://0.0.0.0/2017/11/09/set-up-teleport/">&lt;blockquote&gt;
   &lt;p&gt;由于业务需求，以前账号管理混乱，所以很多人有生产服务器的 root 权限；所以目前需要一个能 ssh 登录线上服务器的工具，同时具有简单的审计功能；找了好久找到了这个小工具，以下记录一下搭建教程&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1227,7 +1225,7 @@ tsh ssh &lt;span class=&quot;nt&quot;&gt;--cluster&lt;/span&gt; nat root@test2.n
 -&amp;gt; teleport-v2.3.5-linux-amd64-bin.tar.gz &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;16797035&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">由于业务需求，以前账号管理混乱，所以很多人有生产服务器的 root 权限；所以目前需要一个能 ssh 登录线上服务器的工具，同时具有简单的审计功能；找了好久找到了这个小工具，以下记录一下搭建教程</summary></entry><entry><title type="html">Kubernetes 深度学习笔记</title><link href="http://0.0.0.0:4000/2017/11/03/deep-learning-on-kubernetes/" rel="alternate" type="text/html" title="Kubernetes 深度学习笔记" /><published>2017-11-03T17:37:13+08:00</published><updated>2017-11-03T17:37:13+08:00</updated><id>http://0.0.0.0:4000/2017/11/03/deep-learning-on-kubernetes</id><content type="html" xml:base="http://0.0.0.0:4000/2017/11/03/deep-learning-on-kubernetes/">&lt;blockquote&gt;
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">由于业务需求，以前账号管理混乱，所以很多人有生产服务器的 root 权限；所以目前需要一个能 ssh 登录线上服务器的工具，同时具有简单的审计功能；找了好久找到了这个小工具，以下记录一下搭建教程</summary></entry><entry><title type="html">Kubernetes 深度学习笔记</title><link href="http://0.0.0.0/2017/11/03/deep-learning-on-kubernetes/" rel="alternate" type="text/html" title="Kubernetes 深度学习笔记" /><published>2017-11-03T17:37:13+08:00</published><updated>2017-11-03T17:37:13+08:00</updated><id>http://0.0.0.0/2017/11/03/deep-learning-on-kubernetes</id><content type="html" xml:base="http://0.0.0.0/2017/11/03/deep-learning-on-kubernetes/">&lt;blockquote&gt;
   &lt;p&gt;本文主要记录下 Kubernetes 下运行深度学习框架如 Tensorflow、Caffe2 等一些坑，纯总结性文档&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1337,7 +1335,7 @@ spec:
 
 &lt;p&gt;&lt;img src=&quot;https://ws2.sinaimg.cn/large/006tKfTcly1fl501nwxhyj31kw0ti7nd.jpg&quot; alt=&quot;Tensorflow&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">本文主要记录下 Kubernetes 下运行深度学习框架如 Tensorflow、Caffe2 等一些坑，纯总结性文档</summary></entry><entry><title type="html">Kubernetes 1.8 kube-proxy 开启 ipvs</title><link href="http://0.0.0.0:4000/2017/10/10/kube-proxy-use-ipvs-on-kubernetes-1.8/" rel="alternate" type="text/html" title="Kubernetes 1.8 kube-proxy 开启 ipvs" /><published>2017-10-10T17:19:04+08:00</published><updated>2017-10-10T17:19:04+08:00</updated><id>http://0.0.0.0:4000/2017/10/10/kube-proxy-use-ipvs-on-kubernetes-1.8</id><content type="html" xml:base="http://0.0.0.0:4000/2017/10/10/kube-proxy-use-ipvs-on-kubernetes-1.8/">&lt;blockquote&gt;
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">本文主要记录下 Kubernetes 下运行深度学习框架如 Tensorflow、Caffe2 等一些坑，纯总结性文档</summary></entry><entry><title type="html">Kubernetes 1.8 kube-proxy 开启 ipvs</title><link href="http://0.0.0.0/2017/10/10/kube-proxy-use-ipvs-on-kubernetes-1.8/" rel="alternate" type="text/html" title="Kubernetes 1.8 kube-proxy 开启 ipvs" /><published>2017-10-10T17:19:04+08:00</published><updated>2017-10-10T17:19:04+08:00</updated><id>http://0.0.0.0/2017/10/10/kube-proxy-use-ipvs-on-kubernetes-1.8</id><content type="html" xml:base="http://0.0.0.0/2017/10/10/kube-proxy-use-ipvs-on-kubernetes-1.8/">&lt;blockquote&gt;
   &lt;p&gt;Kubernetes 1.8 发布已经好几天，1.8 对于 kube-proxy 组件增加了 ipvs 支持，以下记录一下 kube-proxy ipvs 开启教程&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1521,7 +1519,7 @@ systemctl restart kube-proxy
 
 &lt;p&gt;&lt;strong&gt;最后说一点: ipvs 尚未稳定，请慎用；而且 &lt;code class=&quot;highlighter-rouge&quot;&gt;--masquerade-all&lt;/code&gt; 选项与 Calico 安全策略控制不兼容，请酌情考虑使用(Calico 在做网络策略限制的时候要求不能开启此选项)&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">Kubernetes 1.8 发布已经好几天，1.8 对于 kube-proxy 组件增加了 ipvs 支持，以下记录一下 kube-proxy ipvs 开启教程</summary></entry><entry><title type="html">Kubernetes 1.8 集群搭建</title><link href="http://0.0.0.0:4000/2017/10/09/set-up-kubernetes-1.8-ha-cluster/" rel="alternate" type="text/html" title="Kubernetes 1.8 集群搭建" /><published>2017-10-09T22:48:03+08:00</published><updated>2017-10-09T22:48:03+08:00</updated><id>http://0.0.0.0:4000/2017/10/09/set-up-kubernetes-1.8-ha-cluster</id><content type="html" xml:base="http://0.0.0.0:4000/2017/10/09/set-up-kubernetes-1.8-ha-cluster/">&lt;blockquote&gt;
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">Kubernetes 1.8 发布已经好几天，1.8 对于 kube-proxy 组件增加了 ipvs 支持，以下记录一下 kube-proxy ipvs 开启教程</summary></entry><entry><title type="html">Kubernetes 1.8 集群搭建</title><link href="http://0.0.0.0/2017/10/09/set-up-kubernetes-1.8-ha-cluster/" rel="alternate" type="text/html" title="Kubernetes 1.8 集群搭建" /><published>2017-10-09T22:48:03+08:00</published><updated>2017-10-09T22:48:03+08:00</updated><id>http://0.0.0.0/2017/10/09/set-up-kubernetes-1.8-ha-cluster</id><content type="html" xml:base="http://0.0.0.0/2017/10/09/set-up-kubernetes-1.8-ha-cluster/">&lt;blockquote&gt;
   &lt;p&gt;目前 Kubernetes 1.8.0 已经发布，1.8.0增加了很多新特性，比如 kube-proxy 组建的 ipvs 模式等，同时 RBAC 授权也做了一些调整，国庆没事干，所以试了一下；以下记录了 Kubernetes 1.8.0 的搭建过程&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -2550,7 +2548,7 @@ kubectl create &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; dns-horizontal-a
 
 &lt;p&gt;&lt;strong&gt;kube-proxy ipvs 下一篇写，坑有点多，虽然搞定了，但是一篇写有点囫囵吞枣，后来想一想还是分开吧&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">目前 Kubernetes 1.8.0 已经发布，1.8.0增加了很多新特性，比如 kube-proxy 组建的 ipvs 模式等，同时 RBAC 授权也做了一些调整，国庆没事干，所以试了一下；以下记录了 Kubernetes 1.8.0 的搭建过程</summary></entry><entry><title type="html">Ceph 笔记(二)</title><link href="http://0.0.0.0:4000/2017/05/30/ceph-note-2/" rel="alternate" type="text/html" title="Ceph 笔记(二)" /><published>2017-05-30T23:39:29+08:00</published><updated>2017-05-30T23:39:29+08:00</updated><id>http://0.0.0.0:4000/2017/05/30/ceph-note-2</id><content type="html" xml:base="http://0.0.0.0:4000/2017/05/30/ceph-note-2/">&lt;blockquote&gt;
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">目前 Kubernetes 1.8.0 已经发布，1.8.0增加了很多新特性，比如 kube-proxy 组建的 ipvs 模式等，同时 RBAC 授权也做了一些调整，国庆没事干，所以试了一下；以下记录了 Kubernetes 1.8.0 的搭建过程</summary></entry><entry><title type="html">Ceph 笔记(二)</title><link href="http://0.0.0.0/2017/05/30/ceph-note-2/" rel="alternate" type="text/html" title="Ceph 笔记(二)" /><published>2017-05-30T23:39:29+08:00</published><updated>2017-05-30T23:39:29+08:00</updated><id>http://0.0.0.0/2017/05/30/ceph-note-2</id><content type="html" xml:base="http://0.0.0.0/2017/05/30/ceph-note-2/">&lt;blockquote&gt;
   &lt;p&gt;本篇文章主要简述了 Ceph 的存储对象名词解释及其含义，以及对 Ceph 集群内 CRUSH bucket 调整、PG/PGP 参数调整等设置；同时参考了一些书籍资料简单的概述一下 Ceph 集群硬件要求等&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -2705,4 +2703,122 @@ ID WEIGHT  TYPE NAME            UP/DOWN REWEIGHT PRIMARY-AFFINITY
 
 &lt;p&gt;MDS 服务专门为 CephFS 存储元数据，所以相对于 monitor 和 OSD 节点，这个 MDS 节点的 CPU 需求会大得多，同时内存占用也是海量的，所以 MDS 一般会使用一个强劲的物理机单独搭建&lt;/p&gt;
 
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">本篇文章主要简述了 Ceph 的存储对象名词解释及其含义，以及对 Ceph 集群内 CRUSH bucket 调整、PG/PGP 参数调整等设置；同时参考了一些书籍资料简单的概述一下 Ceph 集群硬件要求等</summary></entry></feed>
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">本篇文章主要简述了 Ceph 的存储对象名词解释及其含义，以及对 Ceph 集群内 CRUSH bucket 调整、PG/PGP 参数调整等设置；同时参考了一些书籍资料简单的概述一下 Ceph 集群硬件要求等</summary></entry><entry><title type="html">docker registry</title><link href="http://0.0.0.0/2016/12/23/docker-registry/" rel="alternate" type="text/html" title="docker registry" /><published>2016-12-23T21:16:52+08:00</published><updated>2016-12-23T21:16:52+08:00</updated><id>http://0.0.0.0/2016/12/23/docker-registry</id><content type="html" xml:base="http://0.0.0.0/2016/12/23/docker-registry/">&lt;p&gt;关于私有仓库配置docker官网给出的参考示例 其实已经很详尽了，但是还是不免在配置过程中 踩坑。这里根据官网文档整理了配置示例供大家参考！&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;host文件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+192.168.11.10   hub.test.io 
+192.168.11.20   node1
+192.168.11.30   node2
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;时间同步分别执行&quot;&gt;时间同步(分别执行)：&lt;/h3&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# yum install -y ntpdate &amp;amp;&amp;amp; ntpdate cn.pool.ntp.org&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# yum install -y ntpdate &amp;amp;&amp;amp; ntpdate cn.pool.ntp.org&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# crontab -l&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/5 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; ntpdate cn.pool.ntp.org
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;1仓库服务端设置-hubtestio&quot;&gt;1.仓库服务端设置 hub.test.io：&lt;/h2&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# docker pull registry&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# cat /etc/hosts   //内网没有DNS情况下修改hosts,修改主机名&lt;/span&gt;
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.11.10 hub.test.io
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub ~]# hostname    
+hub.test.io
+说明：如果私有仓库用的不是域名而是IP，请加上此设置：
+- &lt;span class=&quot;c&quot;&gt;# sed -i '/^\[ v3_ca \]$/a subjectAltName = IP:192.168.10.10' /etc/ssl/openssl.cnf&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# mkdir /opt/registry &amp;amp;&amp;amp; cd /opt/registry&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# mkdir auth certs
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# docker run &lt;span class=&quot;nt&quot;&gt;--entrypoint&lt;/span&gt; htpasswd registry:latest &lt;span class=&quot;nt&quot;&gt;-Bbn&lt;/span&gt; username password &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; auth/htpasswd  //自行更换用户名密码
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;auth/htpasswd   // 下面一行为空，切记不要修改生成后的文件
+admin:&lt;span class=&quot;nv&quot;&gt;$2y$05$LSRMXpIbnvnj8ErzbRvKq&lt;/span&gt;.F04Qf3oajP7dFWQIjJBrFAoDXKM1I16
+
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# openssl req &lt;span class=&quot;nt&quot;&gt;-newkey&lt;/span&gt; rsa:4096 &lt;span class=&quot;nt&quot;&gt;-nodes&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-sha256&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-keyout&lt;/span&gt; certs/ca.key &lt;span class=&quot;nt&quot;&gt;-x509&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-days&lt;/span&gt; 365 &lt;span class=&quot;nt&quot;&gt;-out&lt;/span&gt; certs/ca.crt
+Generating a 4096 bit RSA private key
+........
+........
+....++writing new private key to certs/ca.key
+&lt;span class=&quot;nt&quot;&gt;-----&lt;/span&gt;
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter &lt;span class=&quot;s1&quot;&gt;'.'&lt;/span&gt;, the field will be left blank.
+&lt;span class=&quot;nt&quot;&gt;-----&lt;/span&gt;
+Country Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2 letter code&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;XX]:
+State or Province Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;full name&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:
+Locality Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, city&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Default City]:
+Organization Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, company&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Default Company Ltd]:
+Organizational Unit Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, section&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:
+Common Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, your name or your servers hostname&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:hub.test.io
+Email Address &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /etc/docker/certs.d/hub.test.io &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; cp certs/ca.crt /etc/docker/certs.d/hub.test.io
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; /etc/docker/certs.d/hub.test.io/
+ca.crt
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# systemctl daemon-reload &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; systemctl restart docker
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;start.sh
+&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 443:5000 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; registry &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;--restart&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;always &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /var/lib/registry:/var/lib/registry &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;/auth:/auth &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;REGISTRY_AUTH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;htpasswd &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;REGISTRY_AUTH_HTPASSWD_REALM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Registry Realm&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;REGISTRY_AUTH_HTPASSWD_PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/auth/htpasswd &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;/certs:/certs &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;REGISTRY_HTTP_TLS_CERTIFICATE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/certs/ca.crt &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;REGISTRY_HTTP_TLS_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/certs/ca.key &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+registry:latest
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# tree   //最终的目录结构
+&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+├── auth
+│   └── htpasswd
+├── certs
+│   ├── ca.crt
+│   └── ca.key
+└── start.sh
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# docker login hub.test.io
+Username: admin
+Password: 
+Login Succeeded
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# docker tag pause-amd64:3.0 hub.test.io/pause-amd64:3.0
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# docker push hub.test.io/pause-amd64:3.0
+The push refers to a repository &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;hub.test.io/pause-amd64]
+5f70bf18a086: Pushed 
+41ff149e94f2: Pushed 
+3.0: digest: sha256:ec6581792f828ab138bc7ed65205dbd4d7df966249179b7afbb9f6cac729771b size: 939
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;客户端&quot;&gt;客户端：&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.仓库配置:
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# mkdir /etc/docker/certs.d/hub.test.io &lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# scp hub.test.io:/etc/docker/certs.d/hub.test.io/ca.crt /etc/docker/certs.d/hub.test.io&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### 或者通过添加仓库地址配置: ###&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# vim /lib/systemd/system/docker.service&lt;/span&gt;
+.....
+&lt;span class=&quot;nt&quot;&gt;--insecure-registry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hub.test.io&quot;&lt;/span&gt;
+.....
+
+2.登陆仓库并下载镜像：
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# docker login hub.test.io&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# docker pull hub.test.io/pause-amd64:3.0&lt;/span&gt;
+3.0: Pulling from pause-amd64
+a3ed95caeb02: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;f11233434377: Pull &lt;span class=&quot;nb&quot;&gt;complete 
+&lt;/span&gt;Digest: sha256:ec6581792f828ab138bc7ed65205dbd4d7df966249179b7afbb9f6cac729771b
+Status: Downloaded newer image &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;hub.test.io/pause-amd64:3.0
+至此私有仓库就搭建完成了
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;更多配置详解 请查看 &lt;a href=&quot;https://docs.docker.com/registry/&quot;&gt;Docker官方registry配置文档&lt;/a&gt;&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">关于私有仓库配置docker官网给出的参考示例 其实已经很详尽了，但是还是不免在配置过程中 踩坑。这里根据官网文档整理了配置示例供大家参考！</summary></entry></feed>

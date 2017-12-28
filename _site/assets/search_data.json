@@ -1,11 +1,5 @@
 {
   
-  "2017-12-28-docker-registry": {
-    "title": "docker registry",
-    "url": " /2017/12/28/docker-registry/",
-    "category": "Docker"
-  },
-  
   "2017-11-28-ci-cd-gitlab-ci": {
     "title": "CI/CD 之 GitLab CI",
     "url": " /2017/11/28/ci-cd-gitlab-ci/",
@@ -52,6 +46,12 @@
     "title": "Ceph 笔记(二)",
     "url": " /2017/05/30/ceph-note-2/",
     "category": "Linux"
+  },
+  
+  "2016-12-23-docker-registry": {
+    "title": "docker registry",
+    "url": " /2016/12/23/docker-registry/",
+    "category": "Docker"
   },
   
 
@@ -110,6 +110,12 @@
   
 
   
+  "2016-12-23-docker-registry": {
+    "title": "docker registry",
+    "url": "/2016/12/23/docker-registry/",
+    "category": "[&quot;Docker&quot;]"
+  },
+  
   "2017-05-30-ceph-note-2": {
     "title": "Ceph 笔记(二)",
     "url": "/2017/05/30/ceph-note-2/",
@@ -156,12 +162,6 @@
     "title": "CI/CD 之 GitLab CI",
     "url": "/2017/11/28/ci-cd-gitlab-ci/",
     "category": "[&quot;CI/CD&quot;]"
-  },
-  
-  "2017-12-28-docker-registry": {
-    "title": "docker registry",
-    "url": "/2017/12/28/docker-registry/",
-    "category": "[&quot;Docker&quot;]"
   },
   
   "wiki-template": {
