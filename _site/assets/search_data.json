@@ -1,0 +1,173 @@
+{
+  
+  "2017-12-28-docker-registry": {
+    "title": "docker registry",
+    "url": " /2017/12/28/docker-registry/",
+    "category": "Docker"
+  },
+  
+  "2017-11-28-ci-cd-gitlab-ci": {
+    "title": "CI/CD 之 GitLab CI",
+    "url": " /2017/11/28/ci-cd-gitlab-ci/",
+    "category": "CI/CD"
+  },
+  
+  "2017-11-14-ohmydocker": {
+    "title": "ohmydocker 镜像加速",
+    "url": " /2017/11/14/ohmydocker/",
+    "category": "Docker"
+  },
+  
+  "2017-11-12-ci-cd-dockerfile": {
+    "title": "CI/CD 之 Dockerfile",
+    "url": " /2017/11/12/ci-cd-dockerfile/",
+    "category": "CI/CD"
+  },
+  
+  "2017-11-09-set-up-teleport": {
+    "title": "Teleport 跳板机部署",
+    "url": " /2017/11/09/set-up-teleport/",
+    "category": "Linux"
+  },
+  
+  "2017-11-03-deep-learning-on-kubernetes": {
+    "title": "Kubernetes 深度学习笔记",
+    "url": " /2017/11/03/deep-learning-on-kubernetes/",
+    "category": "Kubernetes"
+  },
+  
+  "2017-10-10-kube-proxy-use-ipvs-on-kubernetes-1-8": {
+    "title": "Kubernetes 1.8 kube-proxy 开启 ipvs",
+    "url": " /2017/10/10/kube-proxy-use-ipvs-on-kubernetes-1.8/",
+    "category": "Kubernetes"
+  },
+  
+  "2017-10-09-set-up-kubernetes-1-8-ha-cluster": {
+    "title": "Kubernetes 1.8 集群搭建",
+    "url": " /2017/10/09/set-up-kubernetes-1.8-ha-cluster/",
+    "category": "Kubernetes"
+  },
+  
+  "2017-05-30-ceph-note-2": {
+    "title": "Ceph 笔记(二)",
+    "url": " /2017/05/30/ceph-note-2/",
+    "category": "Linux"
+  },
+  
+
+  
+  
+  "404-html": {
+    "title": "页面没有找到",
+    "url": "/404.html"
+  },
+  
+  
+  
+  "about": {
+    "title": "About",
+    "url": "/about/"
+  },
+  
+  
+  
+  "categories": {
+    "title": "Categories",
+    "url": "/categories/"
+  },
+  
+  
+  
+  
+  
+  "links": {
+    "title": "Links",
+    "url": "/links/"
+  },
+  
+  
+  
+  "open-source": {
+    "title": "Open Source Projects",
+    "url": "/open-source/"
+  },
+  
+  
+  
+  
+  
+  "wiki": {
+    "title": "Wiki",
+    "url": "/wiki/"
+  },
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  "2017-05-30-ceph-note-2": {
+    "title": "Ceph 笔记(二)",
+    "url": "/2017/05/30/ceph-note-2/",
+    "category": "[&quot;Linux&quot;, &quot;Ceph&quot;]"
+  },
+  
+  "2017-10-09-set-up-kubernetes-1-8-ha-cluster": {
+    "title": "Kubernetes 1.8 集群搭建",
+    "url": "/2017/10/09/set-up-kubernetes-1.8-ha-cluster/",
+    "category": "[&quot;Kubernetes&quot;]"
+  },
+  
+  "2017-10-10-kube-proxy-use-ipvs-on-kubernetes-1-8": {
+    "title": "Kubernetes 1.8 kube-proxy 开启 ipvs",
+    "url": "/2017/10/10/kube-proxy-use-ipvs-on-kubernetes-1.8/",
+    "category": "[&quot;Kubernetes&quot;]"
+  },
+  
+  "2017-11-03-deep-learning-on-kubernetes": {
+    "title": "Kubernetes 深度学习笔记",
+    "url": "/2017/11/03/deep-learning-on-kubernetes/",
+    "category": "[&quot;Kubernetes&quot;, &quot;Docker&quot;]"
+  },
+  
+  "2017-11-09-set-up-teleport": {
+    "title": "Teleport 跳板机部署",
+    "url": "/2017/11/09/set-up-teleport/",
+    "category": "[&quot;Linux&quot;]"
+  },
+  
+  "2017-11-12-ci-cd-dockerfile": {
+    "title": "CI/CD 之 Dockerfile",
+    "url": "/2017/11/12/ci-cd-dockerfile/",
+    "category": "[&quot;CI/CD&quot;]"
+  },
+  
+  "2017-11-14-ohmydocker": {
+    "title": "ohmydocker 镜像加速",
+    "url": "/2017/11/14/ohmydocker/",
+    "category": "[&quot;Docker&quot;]"
+  },
+  
+  "2017-11-28-ci-cd-gitlab-ci": {
+    "title": "CI/CD 之 GitLab CI",
+    "url": "/2017/11/28/ci-cd-gitlab-ci/",
+    "category": "[&quot;CI/CD&quot;]"
+  },
+  
+  "2017-12-28-docker-registry": {
+    "title": "docker registry",
+    "url": "/2017/12/28/docker-registry/",
+    "category": "[&quot;Docker&quot;]"
+  },
+  
+  "wiki-template": {
+    "title": "Wiki Template",
+    "url": "/wiki/template/",
+    "category": "[&quot;cate1&quot;, &quot;cate2&quot;]"
+  }
+  
+}
