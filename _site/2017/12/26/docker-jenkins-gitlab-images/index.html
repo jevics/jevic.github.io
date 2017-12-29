@@ -19,7 +19,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>ohmydocker 镜像加速 &mdash; Jevic</title>
+    <title>jenkens-gitlab-docker 自动化构建镜像(一) &mdash; Jevic</title>
     <link rel="stylesheet" href="/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="/assets/vendor/octicons/octicons/octicons.css">
@@ -36,28 +36,28 @@
     
 
     
-    <link rel="canonical" href="http://0.0.0.0:80/2017/11/14/ohmydocker/">
+    <link rel="canonical" href="http://0.0.0.0:80/2017/12/26/docker-jenkins-gitlab-images/">
     <link rel="alternate" type="application/atom+xml" title="Jevic" href="/feed.xml">
     <link rel="shortcut icon" href="/favicon.ico">
     
-    <meta property="og:title" content="ohmydocker 镜像加速">
+    <meta property="og:title" content="jenkens-gitlab-docker 自动化构建镜像(一)">
       
-    <meta name="keywords" content="docker 镜像加速">
-    <meta name="og:keywords" content="docker 镜像加速">
+    <meta name="keywords" content="docker jenkins gitlab">
+    <meta name="og:keywords" content="docker jenkins gitlab">
       
-    <meta name="description" content="  国外一直有台服务器闲置，准备用来做 Docker 镜像下载加速，写了个小工具打成了镜像放了出来 😀">
-    <meta name="og:description" content="  国外一直有台服务器闲置，准备用来做 Docker 镜像下载加速，写了个小工具打成了镜像放了出来 😀">
+    <meta name="description" content="      gitlab来管理dockerfile 源码    使用jenkins来构建部署应用的docker 镜像并自动push到私有仓库              通过执行相关自定义操作来进行应用的自动测试、部署应用操作              进而减少不必要的人为手动操作,驱动自动化的应用部署极大提升效率,实现持续集成与构建!  ">
+    <meta name="og:description" content="      gitlab来管理dockerfile 源码    使用jenkins来构建部署应用的docker 镜像并自动push到私有仓库              通过执行相关自定义操作来进行应用的自动测试、部署应用操作              进而减少不必要的人为手动操作,驱动自动化的应用部署极大提升效率,实现持续集成与构建!  ">
       
     
     
         
     
-    <meta property="og:url" content="http://0.0.0.0:80/2017/11/14/ohmydocker/">
+    <meta property="og:url" content="http://0.0.0.0:80/2017/12/26/docker-jenkins-gitlab-images/">
     <meta property="og:site_name" content="Jevic">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2017-11-14">
+    <meta property="article:published_time" content="2017-12-26">
     
     <script src="/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
@@ -100,16 +100,16 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="ohmydocker 镜像加速">
+    <section class="collection-head small geopattern" data-pattern-id="jenkens-gitlab-">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">ohmydocker 镜像加速</h1>
+        <h1 class="collection-header">jenkens-gitlab-docker 自动化构建镜像(一)</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2017/11/14
+            <span class="octicon octicon-calendar"></span> 2017/12/26
           </span>
           
           
@@ -130,35 +130,158 @@
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
     <blockquote>
-  <p>国外一直有台服务器闲置，准备用来做 Docker 镜像下载加速，写了个小工具打成了镜像放了出来 😀</p>
+  <ul>
+    <li>gitlab来管理dockerfile 源码</li>
+    <li>使用jenkins来构建部署应用的docker 镜像并自动push到私有仓库
+      <ul>
+        <li>通过执行相关自定义操作来进行应用的自动测试、部署应用操作</li>
+      </ul>
+    </li>
+    <li>进而减少不必要的人为手动操作,驱动自动化的应用部署极大提升效率,实现持续集成与构建!</li>
+  </ul>
 </blockquote>
 
-<p>ohmydocker 镜像基于 <code class="highlighter-rouge">docker:dind</code>，也就是所谓的 <strong>Dcoker in Docker</strong> 俄罗斯套娃镜像，使用方法如下:</p>
+<ul>
+  <li>此示例演示了镜像的自动构建操作，更多的例如自动部署应用 后续补充……</li>
+</ul>
 
-<h4 id="1启动镜像">1、启动镜像</h4>
+<h2 id="安装-docker">安装 Docker</h2>
+<ul>
+  <li>省略…… 请自行查看docker官方文档</li>
+</ul>
 
-<p>镜像启动后相当于镜像里运行了一个 Docker daemon 进程，<strong>Docker in Docker 需要使用 privileged 启动，如果觉得不安全请不要使用本镜像(拒绝喷子)</strong></p>
+<h2 id="运行jenkins">运行Jenkins</h2>
+<ul>
+  <li>https://hub.docker.com/r/jevic/jenkins/</li>
+</ul>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">--privileged</span> <span class="nt">-d</span> <span class="nt">--name</span> ohmydocker <span class="nt">-p</span> 1028:1028 mritd/ohmydocker
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> <span class="nt">--name</span> jenkins <span class="se">\</span>
+<span class="nt">-p</span> 8080:8080 <span class="nt">-p</span> 50000:50000 <span class="se">\</span>
+<span class="nt">-v</span> /data/ci/jenkins:/var/jenkins_home <span class="se">\</span>
+<span class="nt">-v</span> /var/run/docker.sock:/var/run/docker.sock <span class="se">\</span>
+jevic/jenkins:docker-latest
 </code></pre></div></div>
 
-<h4 id="2拉取镜像">2、拉取镜像</h4>
+<h2 id="运行gitlab-ce-中文社区版-9x-版本">运行gitlab-ce 中文社区版 (9.x 版本)</h2>
+<ul>
+  <li>https://hub.docker.com/r/twang2218/gitlab-ce-zh/</li>
+</ul>
 
-<p>ohmydocker 启动后将会暴露一个 <code class="highlighter-rouge">1028</code> 的 docker api 端口(tcp)，此时直接通过该端口连接容器内的 Docker daemon 进行 pull 镜像即可</p>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nt">-H</span> LOCAL_IP:1028 pull gcr.io/google_containers/kubernetes-dashboard-init-amd64:v1.0.1
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>version: '2'
+services:
+    gitlab:
+      image: 'twang2218/gitlab-ce-zh:9.2.10'
+      restart: unless-stopped
+      hostname: 'gitlab.jevic.cn'
+      environment:
+        TZ: 'Asia/Shanghai'
+      ports:
+        - '80:80'
+        - '443:443'
+        - '22:22'
+      volumes:
+        - config:/etc/gitlab
+        - data:/var/opt/gitlab
+        - logs:/var/log/gitlab
+volumes:
+    config:
+    data:
+    logs:
 </code></pre></div></div>
 
-<p>镜像 pull 完成后会保存在容器里，并不会直接保存到宿主机，所以还要 save 出来</p>
+<h2 id="配置jenkins">配置jenkins</h2>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nt">-H</span> LOCAL_IP:1028 save gcr.io/google_containers/kubernetes-dashboard-init-amd64:v1.0.1 <span class="o">&gt;</span> kubernetes-dashboard-init-amd64.tar
+<h3 id="安装插件">安装插件</h3>
+<p><img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-docker-plugin.png" alt="" />
+<img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-gitlab-plugs.png" alt="" /></p>
+
+<h3 id="系统设置">系统设置</h3>
+
+<h4 id="配置私有仓库地址以及认证信息">配置私有仓库地址以及认证信息</h4>
+<p><img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-registry-user.png" alt="" /></p>
+
+<h4 id="设置docker-服务">设置docker 服务</h4>
+<ul>
+  <li>新增一个云  选择 docker</li>
+  <li>unix:///var/run/docker.sock
+<img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-docker-cloud.png" alt="" /></li>
+</ul>
+
+<h4 id="获取用户token">获取用户Token</h4>
+
+<p>返回主面板 -&gt; 用户 -&gt; 点击admin -&gt; 设置</p>
+
+<p><img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-admon-token.png" alt="" /></p>
+
+<h4 id="创建任务">创建任务</h4>
+<p><img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-jobs-01.png" alt="" /></p>
+<h5 id="源码管理">源码管理</h5>
+<p><img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-gitlab-nginx-master.png" alt="" /></p>
+
+<h5 id="触发器">触发器</h5>
+<ul>
+  <li>触发远程构建 钩子</li>
+</ul>
+
+<p>Use the following URL to trigger build remotely:
+JENKINS_URL/job/webhook/build?token=TOKEN_NAME 或者 
+/buildWithParameters?token=TOKEN_NAME</p>
+
+<p><img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-chufaqi.png" alt="" /></p>
+
+<h5 id="构建环境默认">构建环境默认</h5>
+<h5 id="构建">构建</h5>
+<ul>
+  <li>以构建次数为标签 hub.jevic.com/nginx/nginx:${BUILD_NUMBER}
+<img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-docker-build.png" alt="" /></li>
+</ul>
+
+<h2 id="gitlab-项目配置">gitlab 项目配置</h2>
+
+<h3 id="创建新的项目-nginx">创建新的项目 nginx</h3>
+<ul>
+  <li>例如: http://jevic@gitlab.jevic.cn/jevic/nginx.git</li>
+</ul>
+
+<h3 id="设置---集成webhook">设置 -&gt; 集成webhook</h3>
+<ul>
+  <li>URL 格式如下:
+    <ul>
+      <li>http://ci.jevic.cn/buildByToken/build?job=webhook&amp;token=[API-TOKEN]</li>
+    </ul>
+  </li>
+  <li>示例:
+    <ul>
+      <li>http://ci.jevic.cn:8080/buildByToken/build?job=webhook&amp;token=494e32323dfsdfaeb0c49f8sdfa232615</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-gitlab-webhook.png" alt="" /></p>
+
+<ul>
+  <li>测试
+<img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-gitlab-webhook-02.png" alt="" /></li>
+</ul>
+
+<h2 id="运行任务">运行任务</h2>
+<ol>
+  <li>push 代码到仓库</li>
+  <li>查看jenkins 构建任务运行状态</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>工作目录
+[root@jevic.cn webhook]# pwd
+/data/ci/jenkins/workspace/webhook
+[root@jevic.cn webhook]# ls
+Dockerfile  README.md
+
 </code></pre></div></div>
-
-<p>镜像 save 成 tar 文件后复制到其他主机进行 load 即可</p>
-
-<p><strong>如果你感觉该镜像对你有所帮助，欢迎请我喝杯咖啡</strong></p>
-
-<p><img src="https://mritd.b0.upaiyun.com/markdown/zhifubao.png" alt="支付宝" /></p>
+<p><img src="http://ok6h8mla5.bkt.clouddn.com/jenkens-webhook-jobs-ok%20%281%29.png" alt="" /></p>
+<ol>
+  <li>查看仓库
+<img src="http://ok6h8mla5.bkt.clouddn.com/jenkins-registry-harbor.png" alt="" /></li>
+</ol>
 
 <p>转载请注明出处，本文采用 <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC4.0</a> 协议授权</p>
 
@@ -176,9 +299,9 @@
             <div id="disqus_thread"></div>
             <script>
                 var disqus_config = function () {
-                    this.page.url = 'http://0.0.0.0:80/2017/11/14/ohmydocker/';
-                    this.page.identifier = '/2017/11/14/ohmydocker/';
-                    this.page.title = 'ohmydocker 镜像加速';
+                    this.page.url = 'http://0.0.0.0:80/2017/12/26/docker-jenkins-gitlab-images/';
+                    this.page.identifier = '/2017/12/26/docker-jenkins-gitlab-images/';
+                    this.page.title = 'jenkens-gitlab-docker 自动化构建镜像(一)';
                 };
                 (function() { // DON'T EDIT BELOW THIS LINE
                     var d = document, s = d.createElement('script');

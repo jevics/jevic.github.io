@@ -125,19 +125,172 @@
                 
                 <li class="repo-list-item">
                     <h3 class="repo-list-name">
-                      <a href="/2016/12/23/docker-registry/">docker registry</a>
+                      <a href="/2017/11/03/deep-learning-on-kubernetes/">Kubernetes 深度学习笔记</a>
                     </h3>
                     <p class="repo-list-description">
-                        关于私有仓库配置docker官网给出的参考示例 其实已经很详尽了，但是还是不免在配置过程中 踩坑。这里根据官网文档整理了配置示例供大家参考！
+                        本文主要记录下 Kubernetes 下运行深度学习框架如 Tensorflow、Caffe2 等一些坑，纯总结性文档
                     </p>
                     <p class="repo-list-meta">
                         <span class="meta-info">
-                          <span class="octicon octicon-calendar"></span> 2016/12/23
+                          <span class="octicon octicon-calendar"></span> 2017/11/03
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="/categories/#Kubernetes" title="Kubernetes">Kubernetes</a>
                         </span>
                         
                         <span class="meta-info">
                           <span class="octicon octicon-file-directory"></span>
                           <a href="/categories/#Docker" title="Docker">Docker</a>
+                        </span>
+                        
+                    </p>
+                </li>
+                
+                <li class="repo-list-item">
+                    <h3 class="repo-list-name">
+                      <a href="/2017/10/10/kube-proxy-use-ipvs-on-kubernetes-1.8/">Kubernetes 1.8 kube-proxy 开启 ipvs</a>
+                    </h3>
+                    <p class="repo-list-description">
+                        Kubernetes 1.8 发布已经好几天，1.8 对于 kube-proxy 组件增加了 ipvs 支持，以下记录一下 kube-proxy ipvs 开启教程
+                    </p>
+                    <p class="repo-list-meta">
+                        <span class="meta-info">
+                          <span class="octicon octicon-calendar"></span> 2017/10/10
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="/categories/#Kubernetes" title="Kubernetes">Kubernetes</a>
+                        </span>
+                        
+                    </p>
+                </li>
+                
+                <li class="repo-list-item">
+                    <h3 class="repo-list-name">
+                      <a href="/2017/10/09/set-up-kubernetes-1.8-ha-cluster/">Kubernetes 1.8 集群搭建</a>
+                    </h3>
+                    <p class="repo-list-description">
+                        目前 Kubernetes 1.8.0 已经发布，1.8.0增加了很多新特性，比如 kube-proxy 组建的 ipvs 模式等，同时 RBAC 授权也做了一些调整，国庆没事干，所以试了一下；以下记录了 Kubernetes 1.8.0 的搭建过程
+                    </p>
+                    <p class="repo-list-meta">
+                        <span class="meta-info">
+                          <span class="octicon octicon-calendar"></span> 2017/10/09
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="/categories/#Kubernetes" title="Kubernetes">Kubernetes</a>
+                        </span>
+                        
+                    </p>
+                </li>
+                
+                <li class="repo-list-item">
+                    <h3 class="repo-list-name">
+                      <a href="/2017/09/12/kafka-zk-conf/">Kafka Zookeeper 操作杂录</a>
+                    </h3>
+                    <p class="repo-list-description">
+                        zookeeper kafka 杂录
+日常使用操作记录及故障处理记录
+                    </p>
+                    <p class="repo-list-meta">
+                        <span class="meta-info">
+                          <span class="octicon octicon-calendar"></span> 2017/09/12
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="/categories/#Kafka" title="Kafka">Kafka</a>
+                        </span>
+                        
+                    </p>
+                </li>
+                
+                <li class="repo-list-item">
+                    <h3 class="repo-list-name">
+                      <a href="/2017/08/08/linux-history-shell/">Linux history 历史命令增强显示</a>
+                    </h3>
+                    <p class="repo-list-description">
+                        默认的history 信息只能看到执行命令而无法得知登陆来源ip以及命令执行时间,
+进而为了更加明了的查看主机的操作信息以及操作”证据”的获取，对所有服务器history 显示信息进行了自定义设置…
+                    </p>
+                    <p class="repo-list-meta">
+                        <span class="meta-info">
+                          <span class="octicon octicon-calendar"></span> 2017/08/08
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="/categories/#Linux" title="Linux">Linux</a>
+                        </span>
+                        
+                    </p>
+                </li>
+                
+                <li class="repo-list-item">
+                    <h3 class="repo-list-name">
+                      <a href="/2017/08/03/linux-jstorm-job-shell/">Jstorm 多任务管理脚本</a>
+                    </h3>
+                    <p class="repo-list-description">
+                        由于之前一直都是手动的执行命令去提交任务和启动停止任务,但是由于计算任务的逐个增加，每次都要敲一大串的命令或者去执行单个任务脚本是一件很痛苦的事情……
+为了方便对jstorm任务日常管理操作，将同一业务下的多个任务进行整理写入一个脚本来进行统一操作
+                    </p>
+                    <p class="repo-list-meta">
+                        <span class="meta-info">
+                          <span class="octicon octicon-calendar"></span> 2017/08/03
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="/categories/#Linux" title="Linux">Linux</a>
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="/categories/#Shell" title="Shell">Shell</a>
+                        </span>
+                        
+                    </p>
+                </li>
+                
+                <li class="repo-list-item">
+                    <h3 class="repo-list-name">
+                      <a href="/2017/08/02/python-mysql-json/">Python Mysql 数据格式化 Json</a>
+                    </h3>
+                    <p class="repo-list-description">
+                        获取MySQL的数据并转化为json格式输出
+                    </p>
+                    <p class="repo-list-meta">
+                        <span class="meta-info">
+                          <span class="octicon octicon-calendar"></span> 2017/08/02
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="/categories/#Python" title="Python">Python</a>
+                        </span>
+                        
+                    </p>
+                </li>
+                
+                <li class="repo-list-item">
+                    <h3 class="repo-list-name">
+                      <a href="/2017/07/21/elk-elasticsearch-common-operation/">Elasticsearch常用操作(一)</a>
+                    </h3>
+                    <p class="repo-list-description">
+                        sql接口查询
+                    </p>
+                    <p class="repo-list-meta">
+                        <span class="meta-info">
+                          <span class="octicon octicon-calendar"></span> 2017/07/21
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="/categories/#ELK" title="ELK">ELK</a>
                         </span>
                         
                     </p>
@@ -327,8 +480,20 @@
               <a href="javascript:;"  class="active btn btn-outline">2</a>
           
         
+          
+              <a href="/page3"  class="btn btn-outline">3</a>
+          
         
-            <button disabled="disabled" href="javascript:;" class="btn btn-outline">&raquo;</button>
+          
+              <a href="/page4"  class="btn btn-outline">4</a>
+          
+        
+          
+              <a href="/page5"  class="btn btn-outline">5</a>
+          
+        
+        
+            <a href="/page3"  class="btn btn-outline">&raquo;</a>
         
         </div>
     </div>

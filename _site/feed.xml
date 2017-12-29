@@ -1,4 +1,827 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://0.0.0.0/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0/" rel="alternate" type="text/html" /><updated>2017-12-29T00:14:05+08:00</updated><id>http://0.0.0.0/</id><title type="html">Jevic</title><subtitle>前路漫漫,忆往昔......</subtitle><author><name>Jevic</name></author><entry><title type="html">CI/CD 之 GitLab CI</title><link href="http://0.0.0.0/2017/11/28/ci-cd-gitlab-ci/" rel="alternate" type="text/html" title="CI/CD 之 GitLab CI" /><published>2017-11-28T17:43:23+08:00</published><updated>2017-11-28T17:43:23+08:00</updated><id>http://0.0.0.0/2017/11/28/ci-cd-gitlab-ci</id><content type="html" xml:base="http://0.0.0.0/2017/11/28/ci-cd-gitlab-ci/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://0.0.0.0/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0/" rel="alternate" type="text/html" /><updated>2017-12-29T18:05:23+08:00</updated><id>http://0.0.0.0/</id><title type="html">Jevic</title><subtitle>前路漫漫,忆往昔......</subtitle><author><name>Jevic</name></author><entry><title type="html">Kafka 配置文件详解</title><link href="http://0.0.0.0/2017/12/29/kafka-server-config/" rel="alternate" type="text/html" title="Kafka 配置文件详解" /><published>2017-12-29T17:24:37+08:00</published><updated>2017-12-29T17:24:37+08:00</updated><id>http://0.0.0.0/2017/12/29/kafka-server-config</id><content type="html" xml:base="http://0.0.0.0/2017/12/29/kafka-server-config/">&lt;h2 id=&quot;kafka-参数说明&quot;&gt;kafka 参数说明&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;server.properties配置如下：&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;broker.id&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
+num.network.threads&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2
+num.io.threads&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8
+socket.send.buffer.bytes&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1048576
+socket.receive.buffer.bytes&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1048576
+socket.request.max.bytes&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;104857600
+log.dirs&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/tmp/kafka-logs
+num.partitions&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2
+log.retention.hours&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;168
+ 
+log.segment.bytes&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;536870912
+log.retention.check.interval.ms&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;60000
+log.cleaner.enable&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false
+ 
+&lt;/span&gt;zookeeper.connect&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;localhost:2181
+zookeeper.connection.timeout.ms&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1000000
+ 
+指定每一个server.properties对应项的含义：
+参数
+说明&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;解释&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+broker.id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
+每一个broker在集群中的唯一表示，要求是正数。当该服务器的IP地址发生改变时，broker.id没有变化，则不会影响consumers的消息情况
+log.dirs&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/data/kafka-logs
+kafka数据的存放地址，多个地址的话用逗号分割 /data/kafka-logs-1，/data/kafka-logs-2
+port &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;9092
+broker server服务端口
+message.max.bytes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;6525000
+表示消息体的最大大小，单位是字节
+num.network.threads &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4
+broker处理消息的最大线程数，一般情况下不需要去修改
+num.io.threads &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8
+broker处理磁盘IO的线程数，数值应该大于你的硬盘数
+background.threads &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4
+一些后台任务处理的线程数，例如过期消息文件的删除等，一般情况下不需要去做修改
+queued.max.requests &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;500
+等待IO线程处理的请求队列最大数，若是等待IO的请求超过这个数值，那么会停止接受外部消息，应该是一种自我保护机制。
+host.name
+broker的主机地址，若是设置了，那么会绑定到这个地址上，若是没有，会绑定到所有的接口上，并将其中之一发送到ZK，一般不设置
+socket.send.buffer.bytes&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;1024
+socket的发送缓冲区，socket的调优参数SO_SNDBUFF
+socket.receive.buffer.bytes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;1024
+socket的接受缓冲区，socket的调优参数SO_RCVBUFF
+socket.request.max.bytes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;1024&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;1024
+socket请求的最大数值，防止serverOOM，message.max.bytes必然要小于socket.request.max.bytes，会被topic创建时的指定参数覆盖
+log.segment.bytes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1024&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;1024&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;1024
+topic的分区是以一堆segment文件存储的，这个控制每个segment的大小，会被topic创建时的指定参数覆盖
+log.roll.hours &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;24&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;7
+这个参数会在日志segment没有达到log.segment.bytes设置的大小，也会强制新建一个segment会被 topic创建时的指定参数覆盖
+log.cleanup.policy &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; delete
+日志清理策略选择有：delete和compact主要针对过期数据的处理，或是日志文件达到限制的额度，会被 topic创建时的指定参数覆盖
+log.retention.minutes&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3days
+数据存储的最大时间超过这个时间会根据log.cleanup.policy设置的策略处理数据，也就是消费端能够多久去消费数据
+log.retention.bytes和log.retention.minutes任意一个达到要求，都会执行删除，会被topic创建时的指定参数覆盖
+log.retention.bytes&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt;
+topic每个分区的最大文件大小，一个topic的大小限制 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 分区数&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;log.retention.bytes。-1没有大小限log.retention.bytes和log.retention.minutes任意一个达到要求，都会执行删除，会被topic创建时的指定参数覆盖
+log.retention.check.interval.ms&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5minutes
+文件大小检查的周期时间，是否处罚 log.cleanup.policy中设置的策略
+log.cleaner.enable&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false
+&lt;/span&gt;是否开启日志压缩
+log.cleaner.threads &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 2
+日志压缩运行的线程数
+log.cleaner.io.max.bytes.per.second&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;None
+日志压缩时候处理的最大大小
+log.cleaner.dedupe.buffer.size&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;500&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;1024&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;1024
+日志压缩去重时候的缓存空间，在空间允许的情况下，越大越好
+log.cleaner.io.buffer.size&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;512&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;1024
+日志清理时候用到的IO块大小一般不需要修改
+log.cleaner.io.buffer.load.factor &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.9
+日志清理中hash表的扩大因子一般不需要修改
+log.cleaner.backoff.ms &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;15000
+检查是否处罚日志清理的间隔
+log.cleaner.min.cleanable.ratio&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.5
+日志清理的频率控制，越大意味着更高效的清理，同时会存在一些空间上的浪费，会被topic创建时的指定参数覆盖
+log.cleaner.delete.retention.ms &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1day
+对于压缩的日志保留的最长时间，也是客户端消费消息的最长时间，同log.retention.minutes的区别在于一个控制未压缩数据，一个控制压缩后的数据。会被topic创建时的指定参数覆盖
+log.index.size.max.bytes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;1024&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;1024
+对于segment日志的索引文件大小限制，会被topic创建时的指定参数覆盖
+log.index.interval.bytes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4096
+当执行一个fetch操作后，需要一定的空间来扫描最近的offset大小，设置越大，代表扫描速度越快，但是也更好内存，一般情况下不需要搭理这个参数
+log.flush.interval.messages&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;None
+log文件”sync”到磁盘之前累积的消息条数,因为磁盘IO操作是一个慢操作,但又是一个”数据可靠性&lt;span class=&quot;s2&quot;&gt;&quot;的必要手段,所以此参数的设置,需要在&quot;&lt;/span&gt;数据可靠性&lt;span class=&quot;s2&quot;&gt;&quot;与&quot;&lt;/span&gt;性能&lt;span class=&quot;s2&quot;&gt;&quot;之间做必要的权衡.如果此值过大,将会导致每次&quot;&lt;/span&gt;fsync&lt;span class=&quot;s2&quot;&gt;&quot;的时间较长(IO阻塞),如果此值过小,将会导致&quot;&lt;/span&gt;fsync&lt;span class=&quot;s2&quot;&gt;&quot;的次数较多,这也意味着整体的client请求有一定的延迟.物理server故障,将会导致没有fsync的消息丢失.
+log.flush.scheduler.interval.ms =3000
+检查是否需要固化到硬盘的时间间隔
+log.flush.interval.ms = None
+仅仅通过interval来控制消息的磁盘写入时机,是不足的.此参数用于控制&quot;&lt;/span&gt;fsync&lt;span class=&quot;s2&quot;&gt;&quot;的时间间隔,如果消息量始终没有达到阀值,但是离上一次磁盘同步的时间间隔达到阀值,也将触发.
+log.delete.delay.ms =60000
+文件在索引中清除后保留的时间一般不需要去修改
+log.flush.offset.checkpoint.interval.ms =60000
+控制上次固化硬盘的时间点，以便于数据恢复一般不需要去修改
+auto.create.topics.enable =true
+是否允许自动创建topic，若是false，就需要通过命令创建topic
+default.replication.factor =1
+是否允许自动创建topic，若是false，就需要通过命令创建topic
+num.partitions =1
+每个topic的分区个数，若是在topic创建时候没有指定的话会被topic创建时的指定参数覆盖
+ 
+ 
+以下是kafka中Leader,replicas配置参数
+ 
+controller.socket.timeout.ms =30000
+partition leader与replicas之间通讯时,socket的超时时间
+controller.message.queue.size=10
+partition leader与replicas数据同步时,消息的队列尺寸
+replica.lag.time.max.ms =10000
+replicas响应partition leader的最长等待时间，若是超过这个时间，就将replicas列入ISR(in-sync replicas)，并认为它是死的，不会再加入管理中
+replica.lag.max.messages =4000
+如果follower落后与leader太多,将会认为此follower[或者说partition relicas]已经失效
+##通常,在follower与leader通讯时,因为网络延迟或者链接断开,总会导致replicas中消息同步滞后
+##如果消息之后太多,leader将认为此follower网络延迟较大或者消息吞吐能力有限,将会把此replicas迁移
+##到其他follower中.
+##在broker数量较少,或者网络不足的环境中,建议提高此值.
+replica.socket.timeout.ms=30*1000
+follower与leader之间的socket超时时间
+replica.socket.receive.buffer.bytes=64*1024
+leader复制时候的socket缓存大小
+replica.fetch.max.bytes =1024*1024
+replicas每次获取数据的最大大小
+replica.fetch.wait.max.ms =500
+replicas同leader之间通信的最大等待时间，失败了会重试
+replica.fetch.min.bytes =1
+fetch的最小数据尺寸,如果leader中尚未同步的数据不足此值,将会阻塞,直到满足条件
+num.replica.fetchers=1
+leader进行复制的线程数，增大这个数值会增加follower的IO
+replica.high.watermark.checkpoint.interval.ms =5000
+每个replica检查是否将最高水位进行固化的频率
+controlled.shutdown.enable =false
+是否允许控制器关闭broker ,若是设置为true,会关闭所有在这个broker上的leader，并转移到其他broker
+controlled.shutdown.max.retries =3
+控制器关闭的尝试次数
+controlled.shutdown.retry.backoff.ms =5000
+每次关闭尝试的时间间隔
+leader.imbalance.per.broker.percentage =10
+leader的不平衡比例，若是超过这个数值，会对分区进行重新的平衡
+leader.imbalance.check.interval.seconds =300
+检查leader是否不平衡的时间间隔
+offset.metadata.max.bytes
+客户端保留offset信息的最大空间大小
+kafka中zookeeper参数配置
+ 
+zookeeper.connect = localhost:2181
+zookeeper集群的地址，可以是多个，多个之间用逗号分割 hostname1:port1,hostname2:port2,hostname3:port3
+zookeeper.session.timeout.ms=6000
+ZooKeeper的最大超时时间，就是心跳的间隔，若是没有反映，那么认为已经死了，不易过大
+zookeeper.connection.timeout.ms =6000
+ZooKeeper的连接超时时间
+zookeeper.sync.time.ms =2000
+ZooKeeper集群中leader和follower之间的同步实际那
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Jevic</name></author><summary type="html">kafka 参数说明 server.properties配置如下：</summary></entry><entry><title type="html">虚拟专用网络 openvpn</title><link href="http://0.0.0.0/2017/12/29/linux-openvpn/" rel="alternate" type="text/html" title="虚拟专用网络 openvpn" /><published>2017-12-29T14:33:17+08:00</published><updated>2017-12-29T14:33:17+08:00</updated><id>http://0.0.0.0/2017/12/29/linux-openvpn</id><content type="html" xml:base="http://0.0.0.0/2017/12/29/linux-openvpn/">&lt;h2 id=&quot;配置安装环境&quot;&gt;配置安装环境&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# yum install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; gcc gcc-c++ pam-devel cmake openssl penssl-devel
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# yum install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; lrzsz    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Secure 上传下载&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## 2.关闭SELINUX、清除防火墙设置&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# vim /etc/selinx/config
+&lt;span class=&quot;c&quot;&gt;#     disabled - No SELinux policy is loaded.&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;SELINUX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;disabled
+  
+&lt;span class=&quot;c&quot;&gt;## 3.开启路由转发功能&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;net.ipv4.ip_forward = 1&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; /etc/sysctl.conf
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# sysctl &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt;
+net.ipv4.ip_forward &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1
+
+
+&lt;span class=&quot;c&quot;&gt;## 4.防火墙规则设置&lt;/span&gt;
+Centos7下：
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# systemctl disable firewalld
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# systemctl stop firewalld
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# yum install iptables-services &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# iptables &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; iptables &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; nat &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;  （清除所有规则）
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# iptables &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; nat &lt;span class=&quot;nt&quot;&gt;-nL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; iptables &lt;span class=&quot;nt&quot;&gt;-nL&lt;/span&gt;   
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# iptables &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; nat &lt;span class=&quot;nt&quot;&gt;-A&lt;/span&gt; POSTROUTING &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; eth0 &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; 10.8.0.0/24 &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt; MASQUERADE
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# iptables &lt;span class=&quot;nt&quot;&gt;-A&lt;/span&gt; INPUT &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; udp &lt;span class=&quot;nt&quot;&gt;--dport&lt;/span&gt; 3307 &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt; ACCEPT     &lt;span class=&quot;c&quot;&gt;## 3307为服务开放的端口&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# service iptables save
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn openvpn]# iptables &lt;span class=&quot;nt&quot;&gt;-nL&lt;/span&gt;
+Chain INPUT &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;policy ACCEPT&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+target     prot opt &lt;span class=&quot;nb&quot;&gt;source               &lt;/span&gt;destination         
+ACCEPT     udp  &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;  0.0.0.0/0            0.0.0.0/0            udp dpt:3307
+......
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn openvpn]# iptables &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; nat &lt;span class=&quot;nt&quot;&gt;-nL&lt;/span&gt;
+Chain PREROUTING &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;policy ACCEPT&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+......       
+Chain POSTROUTING &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;policy ACCEPT&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+target     prot opt &lt;span class=&quot;nb&quot;&gt;source               &lt;/span&gt;destination         
+MASQUERADE  all  &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;  10.8.0.0/24          0.0.0.0/0 
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;安装-lzo-和-openvpn&quot;&gt;安装 LZO 和 openvpn&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;下载地址：http://pan.baidu.com/s/1kTxS4AF&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# &lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-zxf&lt;/span&gt; lzo-2.06.tar.gz 
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# &lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-zxf&lt;/span&gt; openvpn-2.2.2.tar.gz 
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]#cd lzo-2.06
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn lzo-2.06]# ./configure &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;openvpn-2.2.2
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn openvpn-2.2.2]# &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn openvpn-2.2.2]# ./configure 
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn openvpn-2.2.2]# make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;配置openvpn&quot;&gt;配置openVPN&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# mkdir /etc/openvpn
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# cp &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; openvpn-2.2.2/easy-rsa/ /etc/openvpn/
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /etc/openvpn/easy-rsa/2.0/
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn 2.0]# vi vars 
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KEY_COUNTRY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KEY_PROVINCE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;GD&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KEY_CITY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;SZ&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KEY_ORG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;YJ&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KEY_EMAIL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;test@test.cn&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KEY_EMAIL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;mail@host.domain
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KEY_CN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;changeme
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KEY_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;changeme
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KEY_OU&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;changeme
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKCS11_MODULE_PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;changeme
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKCS11_PIN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1234
+ 
+ 
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn 2.0]# &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ./vars
+NOTE: If you run ./clean-all, I will be doing a rm &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; on /etc/openvpn/easy-rsa/2.0/keys
+初始化证书授权中心，创建CA证书，输出信息中已经引用了之前所设置的变量值，这里一路回车即可
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn 2.0]# ./clean-all 
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn 2.0]# ./build-ca （默认，一路回车即可）
+Generating a 1024 bit RSA private key
+.............++++++
+.......................++++++
+&lt;span class=&quot;nt&quot;&gt;-----&lt;/span&gt;
+Country Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2 letter code&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;CN]:
+State or Province Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;full name&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;GD]:
+Locality Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, city&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SZ]:
+Organization Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, company&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;HF]:
+Organizational Unit Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, section&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;changeme]:
+Common Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, your name or your server&lt;span class=&quot;s1&quot;&gt;'s hostname) [changeme]:
+Name [changeme]:
+Email Address [mail@host.domain]:
+
+创建Diffie Hellman 参数,Diffie Hellman 用于增强安全性，在OpenVPN是必须的！
+[root@openvpn ~]# ./build-dh  
+
+[root@openvpn 2.0]# ./build-key-server server （创建服务器证书和密钥！“server&quot;可以自行设定，这里默认为server）
+emailAddress          :IA5STRING:'&lt;/span&gt;mail@host.domain&lt;span class=&quot;s1&quot;&gt;' （前面选项一路回车，下面两项手动输入”y&quot;）
+Certificate is to be certified until Jun 13 06:31:17 2025 GMT (3650 days)
+Sign the certificate? [y/n]:y
+1 out of 1 certificate requests certified, commit? [y/n]y
+Write out database with 1 new entries
+Data Base Updated
+
+[root@openvpn 2.0]# ./build-key client （客户端证书和密钥，名称自定义，这里默认也是client）
+emailAddress          :IA5STRING:'&lt;/span&gt;mail@host.domain&lt;span class=&quot;s1&quot;&gt;' （前面选项一路回车，下面两项手动输入”y&quot;）
+Certificate is to be certified until Jun 13 06:31:43 2025 GMT (3650 days)
+Sign the certificate? [y/n]:y      （这两项都是 “y&quot;）
+1 out of 1 certificate requests certified, commit? [y/n]y
+Write out database with 1 new entries
+Data Base Updated
+至此所需证书及密钥都已经生成完毕。
+
+
+复制服务器证书文件到/etc/openvpn/ 下
+[root@openvpn keys]# cp dh1024.pem ca.crt server.crt server.key /etc/openvpn/
+[root@openvpn keys]# sz ca.crt client.crt client.key (下载到本地，客户端使用)
+
+复制服务器配置文件到/etc/openvpn下，并编辑添加配置相关参数：
+[root@openvpn keys]# cp /root/openvpn-2.2.2/sample-config-files/server.conf  /etc/openvpn/server.conf
+[root@openvpn keys]# vi /etc/openvpn/server.conf
+local 10.1.50.222    # VPN服务器地址
+port 3307    # 端口号
+proto udp  # 协议类型
+dev tun
+ca /etc/openvpn/ca.crt
+cert /etc/openvpn/ltyserver.crt
+key /etc/openvpn/ltyserver.key  # This file should be kept secret
+dh /etc/openvpn/dh1024.pem
+server 10.8.0.0 255.255.255.0  #vpn客户端地址段
+ifconfig-pool-persist ipp.txt
+push &quot;route 10.1.50.0 255.255.0.0&quot;
+push &quot;route 10.1.10.0 255.255.0.0&quot;
+push &quot;redirect-gateway&quot;   #使客户端的默认网关指向VPN,所有连接从VPN转发
+push &quot;dhcp-option DNS 10.1.254.1&quot;
+push &quot;dhcp-option DNS 202.96.134.133&quot;
+keepalive 10 120
+comp-lzo
+persist-key
+persist-tun
+status openvpn-status.log
+verb 3
+#吊销证书参数 初始安装时无需设置,否则报错无法启动
+;crl-verify /etc/openvpn/easy-rsa/2.0/keys/crl.pem  
+
+
+[root@openvpn keys]# openvpn --config /etc/openvpn/server.conf       启动服务
+.....................................................
+Tue Jun 16 03:11:17 2015 Initialization Sequence Completed （初始化顺序完成）
+服务端配置完成，启动程序，查看是否监听3307的udp端口
+默认为udp，并且看到多出来一块网卡tun0，IP为10.8.0.1
+
+添加开机自启：
+[root@openvpn ~]# grep &quot;openvpn&quot; /etc/rc.d/rc.local 
+/usr/local/sbin/openvpn --daemon --config /etc/openvpn/server.conf
+
+下载客户端证书、密钥、客户端配置文件
+[root@openvpn ]# sz openvpn-2.2.2/sample/sample-config-files/client.conf
+修改以下4项配置：
+remote x.x.x.x 3307
+ca ca.crt
+cert client.crt
+key client.key
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;客户端证书文件脚本&quot;&gt;客户端证书文件脚本&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@ ~]# &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /etc/openvpn/easy-rsa/2.0/autoclientkey.sh
+&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;## 创建用户证书文件&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;PWD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/etc/openvpn/easy-rsa/2.0
+&lt;span class=&quot;nv&quot;&gt;KONG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;n&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## 创建证书文件&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; vars
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;sleep 1
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$KONG&lt;/span&gt;
+sleep 1
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$KONG&lt;/span&gt;
+sleep 1
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$KONG&lt;/span&gt;
+sleep 1
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$KONG&lt;/span&gt;
+sleep 1
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$KONG&lt;/span&gt;
+sleep 1
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;y&quot;&lt;/span&gt;
+sleep 1
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;y&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;|./build-key &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;keys/
+&lt;span class=&quot;c&quot;&gt;## 修改客户端配置文件&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;## cp openvpn-2.2.2/sample-config-files/client.conf /etc/openvpn/easy-rsa/2.0/keys/client.ovpn&lt;/span&gt;
+sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;s/client.crt/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.crt/g&quot;&lt;/span&gt; client.ovpn
+sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;s/client.key/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.key/g&quot;&lt;/span&gt; client.ovpn
+
+&lt;span class=&quot;c&quot;&gt;## 打包文件并sz上传到本地&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;## &lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-zcvf&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;.tar.gz &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;.crt &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;.key ca.crt client.ovpn
+sz &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;.tar.gz
+
+&lt;span class=&quot;c&quot;&gt;## 恢复默认客户端配置文件&lt;/span&gt;
+sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;s/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/client/g&quot;&lt;/span&gt; client.ovpn
+sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;s/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/client/g&quot;&lt;/span&gt; client.ovpn
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;常用操作&quot;&gt;常用操作&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+删除账号
+注销用户证书
+1. 进入 OpenVPN 安装目录
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /etc/openvpn/easy-rsa/2.0/ 
+2. 执行 vars 命令 
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; ./var
+3. 使用 revoke-full 命令，吊销客户端证书。命令格式为： 
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# ./revoke-full client1 
+这条命令执行完成之后，会在 keys 目录下面，生成一个 crl.pem 文件，这个文件中包含了吊销证书的名单。 
+成功注销某个证书之后，可以打开　keys/index.txt 文件，可以看到被注销的证书前面，已标记为R． 
+4. 确保服务端配置文件打开了 crl-verify 选项 
+在服务端的配置文件 server.conf 中，加入这样一行： 
+如果 server.conf 文件和 crl.pem 没有在同一目录下面，则 crl.pem 应该写绝对路径，例如: 
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@openvpn ~]# &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /etc/openvpn/server.conf
+crl-verify  /openvpn-2.0.5/easy-rsa/2.0/keys/crl.pem 
+
+访问控制
+iptables &lt;span class=&quot;nt&quot;&gt;-A&lt;/span&gt; FORWARD &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; tun0 &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; 10.10.10.0/30 &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; 10.10.10.4 &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt; ACCEPT
+意思是只允许10.10.10.0网段的IP访问10.10.10.4，如许访问多个IP，及添加多条命令即可。
+
+Openvpn的负载均衡和高可用
+搭建另一台openvpn服务器，将原来的ca.crt  ca.key server.key server.crt server.csr 复制到/etc/openvpn 目录下,在客户端配置文件当中添加3条命令：
+remote 192.168.3.96 1195  &lt;span class=&quot;c&quot;&gt;#openvpn 服务器ip&lt;/span&gt;
+remote-random   &lt;span class=&quot;c&quot;&gt;#开启远程随机服务器&lt;/span&gt;
+resolv-retry 60   &lt;span class=&quot;c&quot;&gt;#开启断开重连60s&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">配置安装环境</summary></entry><entry><title type="html">sublimeText3 插件配置快捷操作</title><link href="http://0.0.0.0/2017/12/29/sublimetext3/" rel="alternate" type="text/html" title="sublimeText3 插件配置快捷操作" /><published>2017-12-29T13:07:51+08:00</published><updated>2017-12-29T13:07:51+08:00</updated><id>http://0.0.0.0/2017/12/29/sublimetext3</id><content type="html" xml:base="http://0.0.0.0/2017/12/29/sublimetext3/">&lt;h2 id=&quot;sublimetext3-for-mac-os&quot;&gt;SublimeText3 for Mac OS&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;工欲善其事必先利其器&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;禁止自动更新&quot;&gt;禁止自动更新&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;http://ourpypwzb.bkt.clouddn.com/sublimeText_User.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;添加 “update_check”: false,&lt;/li&gt;
+  &lt;li&gt;点击菜单栏 Help –&amp;gt; license 输入以下注册信息&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;—– BEGIN LICENSE —–
+Michael Barnes
+Single User License
+EA7E-821385
+8A353C41 872A0D5C DF9B2950 AFF6F667
+C458EA6D 8EA3C286 98D1D650 131A97AB
+AA919AEC EF20E143 B361B1E7 4C8B7F04
+B085E65E 2F5F5360 8489D422 FB8FC1AA
+93F6323C FD7F7544 3F39C318 D95E6480
+FCCC7561 8A4A1741 68FA4223 ADCEDE07
+200C25BE DBBC4855 C4CFB774 C5EC138C
+0FEC1CEF D9DCECEC D3A5DAD1 01316C36
+—— END LICENSE ——
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;安装-package-control&quot;&gt;安装 Package Control&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;所有插件都需要使用此工具来进行安装!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;打开 Sublime Text 3&lt;/li&gt;
+  &lt;li&gt;点击顶部菜单的 View -&amp;gt; Show Console&lt;/li&gt;
+  &lt;li&gt;输入以下代码或者直接访问此链接获取 https://packagecontrol.io/installation#st3&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://ourpypwzb.bkt.clouddn.com/package01.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;点击回车 安装完后即可通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;Command + Shift + P&lt;/code&gt; 打开 Package Control 来安装插件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ourpypwzb.bkt.clouddn.com/package02.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1&gt;#&lt;/h1&gt;
+
+&lt;h2 id=&quot;插件&quot;&gt;插件&lt;/h2&gt;
+&lt;h3 id=&quot;推荐插件&quot;&gt;推荐插件&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Emmet 概括的说，Emmet(其前身是Zen Coding) 是一个可以让你更快更高效地编写HTML/CSS，可以节省你大量时间的插件。 
+调用Emmet快捷键：⌃⌥↩。&lt;/li&gt;
+  &lt;li&gt;Git 这个插件会将git整合进你的SublimeText，使的你可以在SublimeText中运行Git命令，包括添加，提交文件，查看日志，文件注解以及其它Git功能。&lt;/li&gt;
+  &lt;li&gt;AutoFileName 自动补全文件路径，非常方便。&lt;/li&gt;
+  &lt;li&gt;DocBlockr DocBlockr会成为你编写代码文档的有效工具。当输入/**并且按下Tab键的时候，这个插件会自动解析任何一个函数并且为你准备好合适的模板&lt;/li&gt;
+  &lt;li&gt;SFTP 快速编辑远程服务器文件&lt;/li&gt;
+  &lt;li&gt;SublimeLinter 行内语法检测插件，支持： C/C++, Java, Python, PHP, js, HTML, CSS, etc.&lt;/li&gt;
+  &lt;li&gt;Alignment 简单到极致的多行选择和多行选择对齐插件&lt;/li&gt;
+  &lt;li&gt;Markdown-preview Markdown&lt;/li&gt;
+  &lt;li&gt;ChineseLocalization Sublime 汉化插件&lt;/li&gt;
+  &lt;li&gt;Anaconda Python&lt;/li&gt;
+  &lt;li&gt;ctags
+    &lt;h3 id=&quot;view-html插件&quot;&gt;view HTML插件&lt;/h3&gt;
+    &lt;ul&gt;
+      &lt;li&gt;shift + command + p&lt;/li&gt;
+      &lt;li&gt;输入pcip 选择Install Package并回车&lt;/li&gt;
+      &lt;li&gt;view 回车安装&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[  
+{ &quot;keys&quot;: [&quot;f2&quot;], &quot;command&quot;: &quot;open_in_browser&quot; },
+]
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ourpypwzb.bkt.clouddn.com/viewhtml_01.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ourpypwzb.bkt.clouddn.com/viewhtml_02.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ourpypwzb.bkt.clouddn.com/viewhtml_set_03.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ourpypwzb.bkt.clouddn.com/viewhtml_key_04.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;浏览markdown文件&quot;&gt;浏览markdown文件&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Command + Shift + P&lt;/li&gt;
+  &lt;li&gt;pcip&lt;/li&gt;
+  &lt;li&gt;mp&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;python-必备&quot;&gt;Python 必备&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;anaconda&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;color_scheme&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;Packages/Color Scheme - Default/Monokai.tmTheme&quot;&lt;/span&gt;,
+    &lt;span class=&quot;s2&quot;&gt;&quot;font_size&quot;&lt;/span&gt;: 14,
+    &lt;span class=&quot;s2&quot;&gt;&quot;ignored_packages&quot;&lt;/span&gt;:
+    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&quot;Vintage&quot;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;,
+    &lt;span class=&quot;s2&quot;&gt;&quot;anaconda_linting&quot;&lt;/span&gt;: &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;## 取消Python 编写时白色框框提示&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;sublimetext3-for-mac-os-常用快捷键&quot;&gt;SublimeText3 for Mac OS 常用快捷键&lt;/h2&gt;
+&lt;h3 id=&quot;符号说明&quot;&gt;符号说明&lt;/h3&gt;
+
+&lt;p&gt;⌘：command 
+⌃：control 
+⌥：option 
+⇧：shift 
+↩：enter 
+⌫：delete 
+打开/关闭/前往&lt;/p&gt;
+
+&lt;h4 id=&quot;快捷键-功能&quot;&gt;快捷键 功能&lt;/h4&gt;
+&lt;p&gt;⌘⇧N 打开一个新的sublime窗口 
+⌘N 新建文件 
+⌘⇧W 关闭sublime，关闭所有文件 
+⌘W 关闭当前文件 
+⌘P 跳转、前往文件、前往项目、命令提示、前往method等等（Goto anything） 
+⌘⇧T 重新打开最近关闭的文件 
+⌘T 前往文件 
+⌘⌃P 前往项目 
+⌘R 前往method 
+⌘⇧P 命令提示 
+⌃G 前往行 
+⌘KB 开关侧栏 
+⌃` 打开控制台 
+⌃- 光标跳回上一个位置 
+⌃⇧- 光标恢复位置&lt;/p&gt;
+&lt;h4 id=&quot;快捷键-编辑&quot;&gt;快捷键 编辑&lt;/h4&gt;
+
+&lt;p&gt;⌘A 全选 
+⌘L 选择行（重复按下将下一行加入选择） 
+⌘D 选择词（重复按下时多重选择相同的词进行多重编辑） 
+⌃⇧M 选择括号的内容 
+⌘⇧↩ 在当前行前插入新行 
+⌘↩ 在当前行后插入新行 
+⌃⇧K 删除行 
+⌘KK 从光标处删除至行尾 
+⌘K⌫ 从光标处删除至行首 
+⌘⇧D 复制（多）行 
+⌘J 合并（多）行 
+⌘KU 改为大写 
+⌘KL 改为小写 
+⌘C 复制 
+⌘X 剪切 
+⌘V 粘贴 
+⌘/ 注释 
+⌘⌥/ 块注释 
+⌘Z 撤销 
+⌘Y 恢复撤销 
+⌘⇧V 粘贴并自动缩进 
+⌘⌥V 从历史中选择粘贴 
+⌃M 跳转至对应的括号 
+⌘U 软撤销（可撤销光标移动） 
+⌘⇧U 软重做（可重做光标移动） 
+⌘⇧S 保存所有文件 
+⌘] 向右缩进 
+⌘[ 向左缩进 
+⌘⌥T 特殊符号集 
+⌘⇧L 将选区转换成多个单行选区&lt;/p&gt;
+
+&lt;h4 id=&quot;查找替换&quot;&gt;查找/替换&lt;/h4&gt;
+&lt;p&gt;⌘f 查找 
+⌘⌥f 查找并替换 
+⌘⌥g 查找下一个符合当前所选的内容 
+⌘⌃g 查找所有符合当前选择的内容进行多重编辑 
+⌘⇧F 在所有打开的文件中进行查找&lt;/p&gt;
+&lt;h4 id=&quot;拆分窗口标签页&quot;&gt;拆分窗口/标签页&lt;/h4&gt;
+
+&lt;p&gt;⌘⌥[1,2,3,4] 单列、双列、三列、四列 
+⌘⌥5 网格（4组） 
+⌃[1,2,3,4] 焦点移动到相应的组（分屏编号） 
+⌃⇧[1,2,3,4] 将当前文件移动到相应的组（分屏编号） 
+⌘[1,2,3,4] 选择相应的标签页&lt;/p&gt;
+&lt;h4 id=&quot;快捷操作&quot;&gt;快捷操作&lt;/h4&gt;
+
+&lt;p&gt;⌘⌃上下键 两行交换位置 
+⌘KB 显示/隐藏侧边&lt;/p&gt;
+
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">SublimeText3 for Mac OS 工欲善其事必先利其器</summary></entry><entry><title type="html">jenkens-gitlab-docker 自动化构建镜像(一)</title><link href="http://0.0.0.0/2017/12/26/docker-jenkins-gitlab-images/" rel="alternate" type="text/html" title="jenkens-gitlab-docker 自动化构建镜像(一)" /><published>2017-12-26T21:51:44+08:00</published><updated>2017-12-26T21:51:44+08:00</updated><id>http://0.0.0.0/2017/12/26/docker-jenkins-gitlab-images</id><content type="html" xml:base="http://0.0.0.0/2017/12/26/docker-jenkins-gitlab-images/">&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;gitlab来管理dockerfile 源码&lt;/li&gt;
+    &lt;li&gt;使用jenkins来构建部署应用的docker 镜像并自动push到私有仓库
+      &lt;ul&gt;
+        &lt;li&gt;通过执行相关自定义操作来进行应用的自动测试、部署应用操作&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;进而减少不必要的人为手动操作,驱动自动化的应用部署极大提升效率,实现持续集成与构建!&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;此示例演示了镜像的自动构建操作，更多的例如自动部署应用 后续补充……&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;安装-docker&quot;&gt;安装 Docker&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;省略…… 请自行查看docker官方文档&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;运行jenkins&quot;&gt;运行Jenkins&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://hub.docker.com/r/jevic/jenkins/&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; jenkins &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 8080:8080 &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 50000:50000 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /data/ci/jenkins:/var/jenkins_home &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /var/run/docker.sock:/var/run/docker.sock &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+jevic/jenkins:docker-latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;运行gitlab-ce-中文社区版-9x-版本&quot;&gt;运行gitlab-ce 中文社区版 (9.x 版本)&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://hub.docker.com/r/twang2218/gitlab-ce-zh/&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;version: '2'
+services:
+    gitlab:
+      image: 'twang2218/gitlab-ce-zh:9.2.10'
+      restart: unless-stopped
+      hostname: 'gitlab.jevic.cn'
+      environment:
+        TZ: 'Asia/Shanghai'
+      ports:
+        - '80:80'
+        - '443:443'
+        - '22:22'
+      volumes:
+        - config:/etc/gitlab
+        - data:/var/opt/gitlab
+        - logs:/var/log/gitlab
+volumes:
+    config:
+    data:
+    logs:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;配置jenkins&quot;&gt;配置jenkins&lt;/h2&gt;
+
+&lt;h3 id=&quot;安装插件&quot;&gt;安装插件&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-docker-plugin.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-gitlab-plugs.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;系统设置&quot;&gt;系统设置&lt;/h3&gt;
+
+&lt;h4 id=&quot;配置私有仓库地址以及认证信息&quot;&gt;配置私有仓库地址以及认证信息&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-registry-user.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;设置docker-服务&quot;&gt;设置docker 服务&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;新增一个云  选择 docker&lt;/li&gt;
+  &lt;li&gt;unix:///var/run/docker.sock
+&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-docker-cloud.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;获取用户token&quot;&gt;获取用户Token&lt;/h4&gt;
+
+&lt;p&gt;返回主面板 -&amp;gt; 用户 -&amp;gt; 点击admin -&amp;gt; 设置&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-admon-token.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;创建任务&quot;&gt;创建任务&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-jobs-01.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h5 id=&quot;源码管理&quot;&gt;源码管理&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-gitlab-nginx-master.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;触发器&quot;&gt;触发器&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;触发远程构建 钩子&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Use the following URL to trigger build remotely:
+JENKINS_URL/job/webhook/build?token=TOKEN_NAME 或者 
+/buildWithParameters?token=TOKEN_NAME&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-chufaqi.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;构建环境默认&quot;&gt;构建环境默认&lt;/h5&gt;
+&lt;h5 id=&quot;构建&quot;&gt;构建&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;以构建次数为标签 hub.jevic.com/nginx/nginx:${BUILD_NUMBER}
+&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-docker-build.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;gitlab-项目配置&quot;&gt;gitlab 项目配置&lt;/h2&gt;
+
+&lt;h3 id=&quot;创建新的项目-nginx&quot;&gt;创建新的项目 nginx&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;例如: http://jevic@gitlab.jevic.cn/jevic/nginx.git&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;设置---集成webhook&quot;&gt;设置 -&amp;gt; 集成webhook&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;URL 格式如下:
+    &lt;ul&gt;
+      &lt;li&gt;http://ci.jevic.cn/buildByToken/build?job=webhook&amp;amp;token=[API-TOKEN]&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;示例:
+    &lt;ul&gt;
+      &lt;li&gt;http://ci.jevic.cn:8080/buildByToken/build?job=webhook&amp;amp;token=494e32323dfsdfaeb0c49f8sdfa232615&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-gitlab-webhook.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;测试
+&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-gitlab-webhook-02.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;运行任务&quot;&gt;运行任务&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;push 代码到仓库&lt;/li&gt;
+  &lt;li&gt;查看jenkins 构建任务运行状态&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;工作目录
+[root@jevic.cn webhook]# pwd
+/data/ci/jenkins/workspace/webhook
+[root@jevic.cn webhook]# ls
+Dockerfile  README.md
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkens-webhook-jobs-ok%20%281%29.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;查看仓库
+&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/jenkins-registry-harbor.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">gitlab来管理dockerfile 源码 使用jenkins来构建部署应用的docker 镜像并自动push到私有仓库 通过执行相关自定义操作来进行应用的自动测试、部署应用操作 进而减少不必要的人为手动操作,驱动自动化的应用部署极大提升效率,实现持续集成与构建!</summary></entry><entry><title type="html">Zabbix Docker运行及报警监控</title><link href="http://0.0.0.0/2017/12/02/linux-zabbix-docker-install/" rel="alternate" type="text/html" title="Zabbix Docker运行及报警监控" /><published>2017-12-02T16:50:24+08:00</published><updated>2017-12-02T16:50:24+08:00</updated><id>http://0.0.0.0/2017/12/02/linux-zabbix-docker-install</id><content type="html" xml:base="http://0.0.0.0/2017/12/02/linux-zabbix-docker-install/">&lt;h2 id=&quot;zabbix&quot;&gt;Zabbix&lt;/h2&gt;
+&lt;p&gt;使用官方Docker 镜像运行Zabbix 
+&lt;a href=&quot;https://github.com/jevic/docker/tree/master/zabbix&quot;&gt;docker-compose&lt;/a&gt; 编排文件&lt;/p&gt;
+
+&lt;h4 id=&quot;server-配置&quot;&gt;Server 配置&lt;/h4&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@zabbix etc]# &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;zabbix_server.conf
+&lt;span class=&quot;nv&quot;&gt;PidFile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/tmp/zabbix_server.pid
+&lt;span class=&quot;nv&quot;&gt;LogFile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/tmp/zabbix_server.log
+&lt;span class=&quot;nv&quot;&gt;DBHost&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;x.x.x.x
+&lt;span class=&quot;nv&quot;&gt;DBName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zabbix
+&lt;span class=&quot;nv&quot;&gt;DBUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zabbix
+&lt;span class=&quot;nv&quot;&gt;DBPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zabbix_pwd
+&lt;span class=&quot;nv&quot;&gt;DBSocket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/tmp/mysql.sock
+&lt;span class=&quot;nv&quot;&gt;Include&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local/zabbix/etc/zabbix_server.conf.d/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.conf
+&lt;span class=&quot;nv&quot;&gt;StartPollers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;16
+&lt;span class=&quot;nv&quot;&gt;SNMPTrapperFile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/var/log/snmptrap/snmptrap.log
+&lt;span class=&quot;nv&quot;&gt;Timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4
+&lt;span class=&quot;nv&quot;&gt;AlertScriptsPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local/zabbix/share/zabbix/alertscripts
+&lt;span class=&quot;nv&quot;&gt;ExternalScripts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local/zabbix/share/zabbix/externalscripts
+&lt;span class=&quot;nv&quot;&gt;LogSlowQueries&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3000
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;报警设置&quot;&gt;报警设置&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/jevic/wxalarm&quot;&gt;报警接口应用&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/zabbix01.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/zabbix02.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/zabbix03.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/zabbix04.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1. 脚本参数:
+{ALERT.SUBJECT}
+{ALERT.MESSAGE}
+
+2. 动作:
+默认接收人: 
+服务器:{HOSTNAME1}发生: {TRIGGER.NAME} 故障!
+告警主机:{HOSTNAME1}
+告警时间:{EVENT.DATE} {EVENT.TIME}
+告警等级:{TRIGGER.SEVERITY}
+告警信息: {TRIGGER.NAME}
+告警项目:{TRIGGER.KEY1}
+问题详情:{ITEM.NAME}:{ITEM.VALUE}
+
+服务器:{HOSTNAME1}: {TRIGGER.NAME}已恢复!
+告警主机:{HOSTNAME1}
+告警时间:{EVENT.DATE} {EVENT.TIME}
+告警等级:{TRIGGER.SEVERITY}
+告警信息: {TRIGGER.NAME}
+告警项目:{TRIGGER.KEY1}
+问题详情:{ITEM.NAME}:{ITEM.VALUE}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;模板&quot;&gt;模板&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://monitoringartist.github.io/zabbix-searcher/#&lt;/li&gt;
+  &lt;li&gt;模板 -&amp;gt; 应用集 -&amp;gt; 监控项 -&amp;gt; 触发器&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/zabbix-temlpate-01.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/zabbix-template-02.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/zabbix-template-03.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://ok6h8mla5.bkt.clouddn.com/zabbix-template-04.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;触发器多参数示例&quot;&gt;触发器多参数示例&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{Template  DT general  monitor for 302:ngx_status[count,499].last()}&amp;gt;10
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;agent-配置文件&quot;&gt;agent 配置文件&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;UserParameter=chk_timezone,if [ `date +%Z` != CST ];then echo 0 ;else echo 1;fi
+UserParameter=tcp_status[*],/data/script/tcp_status.sh $1
+UserParameter=chk_kt_rsync,/data/script/chk_kt_sync.sh
+UserParameter=chk_openfile,/usr/sbin/lsof -n|wc -l
+UserParameter=ngx_status[*],/data/script/ngx_status.sh $1 $2
+UserParameter=chk_nginx_process,/bin/ps -ef|grep nginx|grep -v grep|wc -l
+UserParameter=chk_io_usage,/usr/bin/iostat -x 1 2 | /usr/bin/perl -lane '$cnt++ and next if /Device/; $max &amp;lt; $F[-1] and $max = $F[-1] if $cnt &amp;gt; 1; END{ print $max || 0.00 }'
+UserParameter=find_disk,/data/script/find_disk.sh
+UserParameter=chk_disk_io[*],/data/script/chk_disk_io.sh $1 $2
+UserParameter=chk_thread[*],/data/script/chk_thread.sh $1
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Jevic</name></author><summary type="html">Zabbix 使用官方Docker 镜像运行Zabbix docker-compose 编排文件</summary></entry><entry><title type="html">CI/CD 之 GitLab CI</title><link href="http://0.0.0.0/2017/11/28/ci-cd-gitlab-ci/" rel="alternate" type="text/html" title="CI/CD 之 GitLab CI" /><published>2017-11-28T17:43:23+08:00</published><updated>2017-11-28T17:43:23+08:00</updated><id>http://0.0.0.0/2017/11/28/ci-cd-gitlab-ci</id><content type="html" xml:base="http://0.0.0.0/2017/11/28/ci-cd-gitlab-ci/">&lt;blockquote&gt;
   &lt;p&gt;接着上篇文章整理，这篇文章主要介绍一下 GitLab CI 相关功能，并通过 GitLab CI 实现自动化构建项目；项目中所用的示例项目已经上传到了 &lt;a href=&quot;https://github.com/mritd/GitLabCI-TestProject&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -454,38 +1277,7 @@ CMD &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&
 
 &lt;p&gt;一切重要的敏感信息，如账户密码等，不要写到 CI 配置中，直接放到 GitLab 的环境变量中；GitLab 会保证将其推送到远端 Runner 的 SHELL 变量中&lt;/p&gt;
 
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">接着上篇文章整理，这篇文章主要介绍一下 GitLab CI 相关功能，并通过 GitLab CI 实现自动化构建项目；项目中所用的示例项目已经上传到了 GitHub</summary></entry><entry><title type="html">ohmydocker 镜像加速</title><link href="http://0.0.0.0/2017/11/14/ohmydocker/" rel="alternate" type="text/html" title="ohmydocker 镜像加速" /><published>2017-11-14T14:43:30+08:00</published><updated>2017-11-14T14:43:30+08:00</updated><id>http://0.0.0.0/2017/11/14/ohmydocker</id><content type="html" xml:base="http://0.0.0.0/2017/11/14/ohmydocker/">&lt;blockquote&gt;
-  &lt;p&gt;国外一直有台服务器闲置，准备用来做 Docker 镜像下载加速，写了个小工具打成了镜像放了出来 😀&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;ohmydocker 镜像基于 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker:dind&lt;/code&gt;，也就是所谓的 &lt;strong&gt;Dcoker in Docker&lt;/strong&gt; 俄罗斯套娃镜像，使用方法如下:&lt;/p&gt;
-
-&lt;h4 id=&quot;1启动镜像&quot;&gt;1、启动镜像&lt;/h4&gt;
-
-&lt;p&gt;镜像启动后相当于镜像里运行了一个 Docker daemon 进程，&lt;strong&gt;Docker in Docker 需要使用 privileged 启动，如果觉得不安全请不要使用本镜像(拒绝喷子)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;--privileged&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; ohmydocker &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 1028:1028 mritd/ohmydocker
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;2拉取镜像&quot;&gt;2、拉取镜像&lt;/h4&gt;
-
-&lt;p&gt;ohmydocker 启动后将会暴露一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;1028&lt;/code&gt; 的 docker api 端口(tcp)，此时直接通过该端口连接容器内的 Docker daemon 进行 pull 镜像即可&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; LOCAL_IP:1028 pull gcr.io/google_containers/kubernetes-dashboard-init-amd64:v1.0.1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;镜像 pull 完成后会保存在容器里，并不会直接保存到宿主机，所以还要 save 出来&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; LOCAL_IP:1028 save gcr.io/google_containers/kubernetes-dashboard-init-amd64:v1.0.1 &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; kubernetes-dashboard-init-amd64.tar
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;镜像 save 成 tar 文件后复制到其他主机进行 load 即可&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;如果你感觉该镜像对你有所帮助，欢迎请我喝杯咖啡&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/zhifubao.png&quot; alt=&quot;支付宝&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">国外一直有台服务器闲置，准备用来做 Docker 镜像下载加速，写了个小工具打成了镜像放了出来 😀</summary></entry><entry><title type="html">CI/CD 之 Dockerfile</title><link href="http://0.0.0.0/2017/11/12/ci-cd-dockerfile/" rel="alternate" type="text/html" title="CI/CD 之 Dockerfile" /><published>2017-11-12T22:46:53+08:00</published><updated>2017-11-12T22:46:53+08:00</updated><id>http://0.0.0.0/2017/11/12/ci-cd-dockerfile</id><content type="html" xml:base="http://0.0.0.0/2017/11/12/ci-cd-dockerfile/">&lt;blockquote&gt;
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">接着上篇文章整理，这篇文章主要介绍一下 GitLab CI 相关功能，并通过 GitLab CI 实现自动化构建项目；项目中所用的示例项目已经上传到了 GitHub</summary></entry><entry><title type="html">CI/CD 之 Dockerfile</title><link href="http://0.0.0.0/2017/11/12/ci-cd-dockerfile/" rel="alternate" type="text/html" title="CI/CD 之 Dockerfile" /><published>2017-11-12T22:46:53+08:00</published><updated>2017-11-12T22:46:53+08:00</updated><id>http://0.0.0.0/2017/11/12/ci-cd-dockerfile</id><content type="html" xml:base="http://0.0.0.0/2017/11/12/ci-cd-dockerfile/">&lt;blockquote&gt;
   &lt;p&gt;最近准备整理一下关于 CI/CD 的相关文档，写一个关于 CI/CD 的系列文章，这篇先从最基本的 Dockerfile 书写开始，本系列文章默认读者已经熟悉 Docker、Kubernetes 相关工具&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1519,1306 +2311,4 @@ systemctl restart kube-proxy
 
 &lt;p&gt;&lt;strong&gt;最后说一点: ipvs 尚未稳定，请慎用；而且 &lt;code class=&quot;highlighter-rouge&quot;&gt;--masquerade-all&lt;/code&gt; 选项与 Calico 安全策略控制不兼容，请酌情考虑使用(Calico 在做网络策略限制的时候要求不能开启此选项)&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">Kubernetes 1.8 发布已经好几天，1.8 对于 kube-proxy 组件增加了 ipvs 支持，以下记录一下 kube-proxy ipvs 开启教程</summary></entry><entry><title type="html">Kubernetes 1.8 集群搭建</title><link href="http://0.0.0.0/2017/10/09/set-up-kubernetes-1.8-ha-cluster/" rel="alternate" type="text/html" title="Kubernetes 1.8 集群搭建" /><published>2017-10-09T22:48:03+08:00</published><updated>2017-10-09T22:48:03+08:00</updated><id>http://0.0.0.0/2017/10/09/set-up-kubernetes-1.8-ha-cluster</id><content type="html" xml:base="http://0.0.0.0/2017/10/09/set-up-kubernetes-1.8-ha-cluster/">&lt;blockquote&gt;
-  &lt;p&gt;目前 Kubernetes 1.8.0 已经发布，1.8.0增加了很多新特性，比如 kube-proxy 组建的 ipvs 模式等，同时 RBAC 授权也做了一些调整，国庆没事干，所以试了一下；以下记录了 Kubernetes 1.8.0 的搭建过程&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;一环境准备&quot;&gt;一、环境准备&lt;/h3&gt;
-
-&lt;p&gt;目前测试为 5 台虚拟机，etcd、kubernetes 全部采用 rpm 安装，使用 systemd 来做管理，网络组件采用 calico，Master 实现了 HA；基本环境如下&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;IP&lt;/th&gt;
-      &lt;th&gt;组件&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;10.10.1.5&lt;/td&gt;
-      &lt;td&gt;Master、Node、etcd&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;10.10.1.6&lt;/td&gt;
-      &lt;td&gt;Master、Node、etcd&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;10.10.1.7&lt;/td&gt;
-      &lt;td&gt;Master、Node、etcd&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;10.10.1.8&lt;/td&gt;
-      &lt;td&gt;Node&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;10.10.1.9&lt;/td&gt;
-      &lt;td&gt;Node&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;strong&gt;本文尽量以实际操作为主，因为写过一篇 &lt;a href=&quot;https://mritd.me/2017/07/21/set-up-kubernetes-ha-cluster-by-binary/&quot;&gt;Kubernetes 1.7 搭建文档&lt;/a&gt;，所以以下细节部分不在详细阐述，不懂得可以参考上一篇文章；本文所有安装工具均已打包上传到了 &lt;a href=&quot;https://pan.baidu.com/s/1nvwZCfv&quot;&gt;百度云&lt;/a&gt; 密码: &lt;code class=&quot;highlighter-rouge&quot;&gt;4zaz&lt;/code&gt;，可直接下载重复搭建过程，搭建前请自行 load 好 images 目录下的相关 docker 镜像&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;二搭建-etcd-集群&quot;&gt;二、搭建 Etcd 集群&lt;/h3&gt;
-
-&lt;h4 id=&quot;21生成-etcd-证书&quot;&gt;2.1、生成 Etcd 证书&lt;/h4&gt;
-
-&lt;p&gt;同样证书工具仍使用的是 &lt;a href=&quot;https://pkg.cfssl.org/&quot;&gt;cfssl&lt;/a&gt;，百度云的压缩包里已经包含了，下面直接上配置(&lt;strong&gt;注意，所有证书生成只需要在任意一台主机上生成一遍即可，我这里在 Master 上操作的&lt;/strong&gt;)&lt;/p&gt;
-
-&lt;h5 id=&quot;etcd-csrjson&quot;&gt;etcd-csr.json&lt;/h5&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;key&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;algo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rsa&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;size&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2048&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;names&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;etcd&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;OU&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;etcd Security&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;L&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Beijing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ST&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Beijing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;C&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;etcd&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hosts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;127.0.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;localhost&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;10.10.1.5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;10.10.1.6&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;10.10.1.7&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;10.10.1.8&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;10.10.1.9&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;etcd-gencertjson&quot;&gt;etcd-gencert.json&lt;/h5&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;signing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;default&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;usages&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;signing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;key encipherment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;server auth&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;client auth&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;expiry&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;87600h&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;etcd-root-ca-csrjson&quot;&gt;etcd-root-ca-csr.json&lt;/h5&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;key&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;algo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rsa&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;size&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4096&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;names&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;etcd&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;OU&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;etcd Security&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;L&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Beijing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ST&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Beijing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;C&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;etcd-root-ca&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;最后生成证书&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cfssl gencert &lt;span class=&quot;nt&quot;&gt;--initca&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true &lt;/span&gt;etcd-root-ca-csr.json | cfssljson &lt;span class=&quot;nt&quot;&gt;--bare&lt;/span&gt; etcd-root-ca
-cfssl gencert &lt;span class=&quot;nt&quot;&gt;--ca&lt;/span&gt; etcd-root-ca.pem &lt;span class=&quot;nt&quot;&gt;--ca-key&lt;/span&gt; etcd-root-ca-key.pem &lt;span class=&quot;nt&quot;&gt;--config&lt;/span&gt; etcd-gencert.json etcd-csr.json | cfssljson &lt;span class=&quot;nt&quot;&gt;--bare&lt;/span&gt; etcd
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;证书生成后截图如下&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/6mn6y.jpg&quot; alt=&quot;Gen Etcd Cert&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;22搭建集群&quot;&gt;2.2、搭建集群&lt;/h4&gt;
-
-&lt;p&gt;首先分发证书及 rpm 包&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 分发 rpm&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;IP &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;seq 5 7&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;scp etcd-3.2.7-1.fc28.x86_64.rpm root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt;:~
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; rpm &lt;span class=&quot;nt&quot;&gt;-ivh&lt;/span&gt; etcd-3.2.7-1.fc28.x86_64.rpm
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 分发证书&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;IP &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;seq 5 7&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; mkdir /etc/etcd/ssl
-    scp &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.pem root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt;:/etc/etcd/ssl
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; chown &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; etcd:etcd /etc/etcd/ssl
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; chmod &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; 644 /etc/etcd/ssl/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; chmod 755 /etc/etcd/ssl
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 修改 etcd 数据目录权限组&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;IP &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;seq 5 7&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; chown &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; etcd:etcd /var/lib/etcd
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;然后修改配置如下(其他两个节点类似，只需要改监听地址和 Etcd Name 即可)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker1.node ➜  ~ &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /etc/etcd/etcd.conf
-
-&lt;span class=&quot;c&quot;&gt;# [member]&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;etcd1
-&lt;span class=&quot;nv&quot;&gt;ETCD_DATA_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/var/lib/etcd/etcd1.etcd&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_WAL_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/var/lib/etcd/wal&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_SNAPSHOT_COUNT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;100&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_HEARTBEAT_INTERVAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;100&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_ELECTION_TIMEOUT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1000&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_LISTEN_PEER_URLS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://10.10.1.5:2380&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_LISTEN_CLIENT_URLS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://10.10.1.5:2379,http://127.0.0.1:2379&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_MAX_SNAPSHOTS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_MAX_WALS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_CORS=&quot;&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# [cluster]&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_INITIAL_ADVERTISE_PEER_URLS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://10.10.1.5:2380&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# if you use different ETCD_NAME (e.g. test), set ETCD_INITIAL_CLUSTER value for this name, i.e. &quot;test=http://...&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_INITIAL_CLUSTER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;etcd1=https://10.10.1.5:2380,etcd2=https://10.10.1.6:2380,etcd3=https://10.10.1.7:2380&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_INITIAL_CLUSTER_STATE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;new&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_INITIAL_CLUSTER_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;etcd-cluster&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_ADVERTISE_CLIENT_URLS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://10.10.1.5:2379&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_DISCOVERY=&quot;&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_DISCOVERY_SRV=&quot;&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_DISCOVERY_FALLBACK=&quot;proxy&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_DISCOVERY_PROXY=&quot;&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_STRICT_RECONFIG_CHECK=&quot;false&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_AUTO_COMPACTION_RETENTION=&quot;0&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# [proxy]&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_PROXY=&quot;off&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_PROXY_FAILURE_WAIT=&quot;5000&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_PROXY_REFRESH_INTERVAL=&quot;30000&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_PROXY_DIAL_TIMEOUT=&quot;1000&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_PROXY_WRITE_TIMEOUT=&quot;5000&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_PROXY_READ_TIMEOUT=&quot;0&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# [security]&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_CERT_FILE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/etc/etcd/ssl/etcd.pem&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_KEY_FILE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/etc/etcd/ssl/etcd-key.pem&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_CLIENT_CERT_AUTH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_TRUSTED_CA_FILE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/etc/etcd/ssl/etcd-root-ca.pem&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_AUTO_TLS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_PEER_CERT_FILE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/etc/etcd/ssl/etcd.pem&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_PEER_KEY_FILE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/etc/etcd/ssl/etcd-key.pem&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_PEER_CLIENT_CERT_AUTH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_PEER_TRUSTED_CA_FILE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/etc/etcd/ssl/etcd-root-ca.pem&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;ETCD_PEER_AUTO_TLS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# [logging]&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_DEBUG=&quot;false&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# examples for -log-package-levels etcdserver=WARNING,security=DEBUG&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#ETCD_LOG_PACKAGE_LEVELS=&quot;&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;最后启动集群并测试如下&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;systemctl daemon-reload
-systemctl start etcd
-systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;etcd
-
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ETCDCTL_API&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3
-etcdctl &lt;span class=&quot;nt&quot;&gt;--cacert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/etc/etcd/ssl/etcd-root-ca.pem &lt;span class=&quot;nt&quot;&gt;--cert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/etc/etcd/ssl/etcd.pem &lt;span class=&quot;nt&quot;&gt;--key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/etc/etcd/ssl/etcd-key.pem &lt;span class=&quot;nt&quot;&gt;--endpoints&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https://10.10.1.5:2379,https://10.10.1.6:2379,https://10.10.1.7:2379 endpoint health
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/ecrgr.jpg&quot; alt=&quot;check etcd&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;三搭建-master-节点&quot;&gt;三、搭建 Master 节点&lt;/h3&gt;
-
-&lt;h4 id=&quot;31生成-kubernetes-证书&quot;&gt;3.1、生成 Kubernetes 证书&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;生成证书配置文件需要借助 kubectl，所以先要安装一下 kubernetes-client 包&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rpm &lt;span class=&quot;nt&quot;&gt;-ivh&lt;/span&gt; kubernetes-client-1.8.0-1.el7.centos.x86_64.rpm
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;生成证书配置如下&lt;/p&gt;
-
-&lt;h5 id=&quot;admin-csrjson&quot;&gt;admin-csr.json&lt;/h5&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;admin&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hosts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;key&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;algo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rsa&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;size&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2048&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;names&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;C&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ST&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;BeiJing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;L&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;BeiJing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;system:masters&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;OU&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;System&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;k8s-gencertjson&quot;&gt;k8s-gencert.json&lt;/h5&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;signing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;default&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;expiry&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;87600h&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;profiles&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;kubernetes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;usages&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;signing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;key encipherment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;server auth&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;client auth&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;expiry&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;87600h&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;k8s-root-ca-csrjson&quot;&gt;k8s-root-ca-csr.json&lt;/h5&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;kubernetes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;key&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;algo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rsa&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;size&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4096&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;names&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;C&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ST&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;BeiJing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;L&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;BeiJing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;k8s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;OU&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;System&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;kube-proxy-csrjson&quot;&gt;kube-proxy-csr.json&lt;/h5&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;system:kube-proxy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hosts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;key&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;algo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rsa&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;size&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2048&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;names&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;C&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ST&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;BeiJing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;L&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;BeiJing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;k8s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;OU&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;System&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;kubernetes-csrjson&quot;&gt;kubernetes-csr.json&lt;/h5&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;kubernetes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hosts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;127.0.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;10.254.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;10.10.1.5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;10.10.1.6&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;10.10.1.7&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;10.10.1.8&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;10.10.1.9&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;localhost&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;kubernetes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;kubernetes.default&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;kubernetes.default.svc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;kubernetes.default.svc.cluster&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;kubernetes.default.svc.cluster.local&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;key&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;algo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rsa&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;size&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2048&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;names&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;C&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ST&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;BeiJing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;L&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;BeiJing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;O&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;k8s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;OU&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;System&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;最后生成证书及配置文件&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 生成证书&lt;/span&gt;
-cfssl gencert &lt;span class=&quot;nt&quot;&gt;--initca&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true &lt;/span&gt;k8s-root-ca-csr.json | cfssljson &lt;span class=&quot;nt&quot;&gt;--bare&lt;/span&gt; k8s-root-ca
-
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;targetName &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;kubernetes admin kube-proxy&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;cfssl gencert &lt;span class=&quot;nt&quot;&gt;--ca&lt;/span&gt; k8s-root-ca.pem &lt;span class=&quot;nt&quot;&gt;--ca-key&lt;/span&gt; k8s-root-ca-key.pem &lt;span class=&quot;nt&quot;&gt;--config&lt;/span&gt; k8s-gencert.json &lt;span class=&quot;nt&quot;&gt;--profile&lt;/span&gt; kubernetes &lt;span class=&quot;nv&quot;&gt;$targetName&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-csr&lt;/span&gt;.json | cfssljson &lt;span class=&quot;nt&quot;&gt;--bare&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$targetName&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 生成配置&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KUBE_APISERVER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://127.0.0.1:6443&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BOOTSTRAP_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;head &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; 16 /dev/urandom | od &lt;span class=&quot;nt&quot;&gt;-An&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; x | tr &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Tokne: &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BOOTSTRAP_TOKEN&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; token.csv &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BOOTSTRAP_TOKEN&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;,kubelet-bootstrap,10001,&quot;system:kubelet-bootstrap&quot;
-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF
-
-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Create kubelet bootstrapping kubeconfig...&quot;&lt;/span&gt;
-kubectl config set-cluster kubernetes &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--certificate-authority&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;k8s-root-ca.pem &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--embed-certs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--server&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KUBE_APISERVER&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--kubeconfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bootstrap.kubeconfig
-kubectl config set-credentials kubelet-bootstrap &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BOOTSTRAP_TOKEN&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--kubeconfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bootstrap.kubeconfig
-kubectl config set-context default &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--cluster&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kubernetes &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kubelet-bootstrap &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--kubeconfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bootstrap.kubeconfig
-kubectl config use-context default &lt;span class=&quot;nt&quot;&gt;--kubeconfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bootstrap.kubeconfig
-
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Create kube-proxy kubeconfig...&quot;&lt;/span&gt;
-kubectl config set-cluster kubernetes &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--certificate-authority&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;k8s-root-ca.pem &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--embed-certs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--server&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;KUBE_APISERVER&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--kubeconfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kube-proxy.kubeconfig
-kubectl config set-credentials kube-proxy &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--client-certificate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kube-proxy.pem &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--client-key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kube-proxy-key.pem &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--embed-certs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--kubeconfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kube-proxy.kubeconfig
-kubectl config set-context default &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--cluster&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kubernetes &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kube-proxy &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--kubeconfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kube-proxy.kubeconfig
-kubectl config use-context default &lt;span class=&quot;nt&quot;&gt;--kubeconfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kube-proxy.kubeconfig
-
-&lt;span class=&quot;c&quot;&gt;# 生成高级审计配置&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; audit-policy.yaml &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
-# Log all requests at the Metadata level.
-apiVersion: audit.k8s.io/v1beta1
-kind: Policy
-rules:
-- level: Metadata
-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;32分发-rpm-及证书&quot;&gt;3.2、分发 rpm 及证书&lt;/h4&gt;
-
-&lt;p&gt;创建好证书以后就要进行分发，同时由于 Master 也作为 Node 使用，所以以下命令中在 Master 上也安装了 kubelet、kube-proxy 组件&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 分发并安装 rpm&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;IP &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;seq 5 7&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;scp kubernetes&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.rpm root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt;:~&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; yum install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; kubernetes&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.rpm
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 分发证书&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;IP &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;seq 5 7&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; mkdir /etc/kubernetes/ssl
-    scp &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.pem root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt;:/etc/kubernetes/ssl
-    scp &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.kubeconfig token.csv audit-policy.yaml root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt;:/etc/kubernetes
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; chown &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; kube:kube /etc/kubernetes/ssl
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 设置 log 目录权限&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;IP &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;seq 5 7&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /var/log/kube-audit /usr/libexec/kubernetes
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; chown &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; kube:kube /var/log/kube-audit /usr/libexec/kubernetes
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; chmod &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; 755 /var/log/kube-audit /usr/libexec/kubernetes
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;33-搭建-master-节点&quot;&gt;3.3、 搭建 Master 节点&lt;/h4&gt;
-
-&lt;p&gt;证书与 rpm 都安装完成后，只需要修改配置(配置位于 &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/kubernetes&lt;/code&gt; 目录)后启动相关组件即可&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;config 通用配置&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;###&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# kubernetes system config&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# The following values are used to configure various aspects of all&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# kubernetes services, including&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#   kube-apiserver.service&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#   kube-controller-manager.service&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#   kube-scheduler.service&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#   kubelet.service&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#   kube-proxy.service&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# logging to stderr means we get it in the systemd journal&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_LOGTOSTDERR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--logtostderr=true&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# journal message level, 0 is debug&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_LOG_LEVEL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--v=2&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Should this cluster be allowed to run privileged docker containers&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_ALLOW_PRIV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--allow-privileged=true&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# How the controller-manager, scheduler, and proxy find the apiserver&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_MASTER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--master=http://127.0.0.1:8080&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;apiserver-配置&quot;&gt;apiserver 配置&lt;/h5&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;###&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# kubernetes system config&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# The following values are used to configure the kube-apiserver&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# The address on the local server to listen to.&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_API_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--advertise-address=10.10.1.5 --insecure-bind-address=127.0.0.1 --bind-address=10.10.1.5&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# The port on the local server to listen on.&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_API_PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--insecure-port=8080 --secure-port=6443&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Port minions listen on&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# KUBELET_PORT=&quot;--kubelet-port=10250&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Comma separated list of nodes in the etcd cluster&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_ETCD_SERVERS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--etcd-servers=https://10.10.1.5:2379,https://10.10.1.6:2379,https://10.10.1.7:2379&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Address range to use for services&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_SERVICE_ADDRESSES&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--service-cluster-ip-range=10.254.0.0/16&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# default admission control policies&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_ADMISSION_CONTROL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--admission-control=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota,NodeRestriction&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Add your own!&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_API_ARGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--authorization-mode=RBAC,Node &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --anonymous-auth=false &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --kubelet-https=true &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --enable-bootstrap-token-auth &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --token-auth-file=/etc/kubernetes/token.csv &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --service-node-port-range=30000-50000 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --tls-cert-file=/etc/kubernetes/ssl/kubernetes.pem &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --tls-private-key-file=/etc/kubernetes/ssl/kubernetes-key.pem &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --client-ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --service-account-key-file=/etc/kubernetes/ssl/k8s-root-ca.pem &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --etcd-quorum-read=true &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --storage-backend=etcd3 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --etcd-cafile=/etc/etcd/ssl/etcd-root-ca.pem &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --etcd-certfile=/etc/etcd/ssl/etcd.pem &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --etcd-keyfile=/etc/etcd/ssl/etcd-key.pem &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --enable-swagger-ui=true &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --apiserver-count=3 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --audit-policy-file=/etc/kubernetes/audit-policy.yaml &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --audit-log-maxage=30 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --audit-log-maxbackup=3 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --audit-log-maxsize=100 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --audit-log-path=/var/log/kube-audit/audit.log &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-               --event-ttl=1h&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;注意：API SERVER 对比 1.7 配置出现几项变动:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;移除了 &lt;code class=&quot;highlighter-rouge&quot;&gt;--runtime-config=rbac.authorization.k8s.io/v1beta1&lt;/code&gt; 配置，因为 RBAC 已经稳定，被纳入了 v1 api，不再需要指定开启&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--authorization-mode&lt;/code&gt; 授权模型增加了 &lt;code class=&quot;highlighter-rouge&quot;&gt;Node&lt;/code&gt; 参数，因为 1.8 后默认 &lt;code class=&quot;highlighter-rouge&quot;&gt;system:node&lt;/code&gt; role 不会自动授予 &lt;code class=&quot;highlighter-rouge&quot;&gt;system:nodes&lt;/code&gt; 组，具体请参看 &lt;a href=&quot;https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#before-upgrading&quot;&gt;CHANGELOG&lt;/a&gt;(before-upgrading 段最后一条说明)&lt;/li&gt;
-  &lt;li&gt;由于以上原因，&lt;code class=&quot;highlighter-rouge&quot;&gt;--admission-control&lt;/code&gt; 同时增加了 &lt;code class=&quot;highlighter-rouge&quot;&gt;NodeRestriction&lt;/code&gt; 参数，关于关于节点授权器请参考 &lt;a href=&quot;https://kubernetes.io/docs/admin/authorization/node/&quot;&gt;Using Node Authorization&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;增加 &lt;code class=&quot;highlighter-rouge&quot;&gt;--audit-policy-file&lt;/code&gt; 参数用于指定高级审计配置，具体可参考 &lt;a href=&quot;https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#before-upgrading&quot;&gt;CHANGELOG&lt;/a&gt;(before-upgrading 第四条)、&lt;a href=&quot;https://kubernetes.io/docs/tasks/debug-application-cluster/audit/#advanced-audit&quot;&gt;Advanced audit&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;移除 &lt;code class=&quot;highlighter-rouge&quot;&gt;--experimental-bootstrap-token-auth&lt;/code&gt; 参数，更换为 &lt;code class=&quot;highlighter-rouge&quot;&gt;--enable-bootstrap-token-auth&lt;/code&gt;，详情参考 &lt;a href=&quot;https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#auth&quot;&gt;CHANGELOG&lt;/a&gt;(Auth 第二条)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;controller-manager-配置&quot;&gt;controller-manager 配置&lt;/h5&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;###&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# The following values are used to configure the kubernetes controller-manager&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# defaults from config and apiserver should be adequate&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Add your own!&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_CONTROLLER_MANAGER_ARGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--address=0.0.0.0 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                              --service-cluster-ip-range=10.254.0.0/16 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                              --cluster-name=kubernetes &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                              --cluster-signing-cert-file=/etc/kubernetes/ssl/k8s-root-ca.pem &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                              --cluster-signing-key-file=/etc/kubernetes/ssl/k8s-root-ca-key.pem &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                              --service-account-private-key-file=/etc/kubernetes/ssl/k8s-root-ca-key.pem &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                              --root-ca-file=/etc/kubernetes/ssl/k8s-root-ca.pem &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                              --leader-elect=true &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                              --node-monitor-grace-period=40s &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                              --node-monitor-period=5s &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                              --pod-eviction-timeout=5m0s&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;scheduler-配置&quot;&gt;scheduler 配置&lt;/h5&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;###&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# kubernetes scheduler config&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# default config should be adequate&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Add your own!&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_SCHEDULER_ARGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--leader-elect=true --address=0.0.0.0&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;最后启动 Master 相关组件并验证&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;systemctl daemon-reload
-systemctl start kube-apiserver
-systemctl start kube-controller-manager
-systemctl start kube-scheduler
-systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;kube-apiserver
-systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;kube-controller-manager
-systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;kube-scheduler
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/klnwa.jpg&quot; alt=&quot;Master Success&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;四搭建-node-节点&quot;&gt;四、搭建 Node 节点&lt;/h3&gt;
-
-&lt;h4 id=&quot;41分发-rpm-及证书&quot;&gt;4.1、分发 rpm 及证书&lt;/h4&gt;
-
-&lt;p&gt;对于 Node 节点，只需要安装 &lt;code class=&quot;highlighter-rouge&quot;&gt;kubernetes-node&lt;/code&gt; 即可，同时为了方便使用，这里也安装了 &lt;code class=&quot;highlighter-rouge&quot;&gt;kubernetes-client&lt;/code&gt;，如下&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;IP &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;seq 8 9&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;scp kubernetes-node-1.8.0-1.el7.centos.x86_64.rpm kubernetes-client-1.8.0-1.el7.centos.x86_64.rpm root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt;:~
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; yum install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; kubernetes-node-1.8.0-1.el7.centos.x86_64.rpm kubernetes-client-1.8.0-1.el7.centos.x86_64.rpm
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;同时还要分发相关证书；这里将 Etcd 证书已进行了分发，是因为 &lt;strong&gt;虽然 Node 节点上没有 Etcd，但是如果部署网络组件，如 calico、flannel 等时，网络组件需要联通 Etcd 就会用到 Etcd 的相关证书。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 分发 Kubernetes 证书&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;IP &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;seq 8 9&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; mkdir /etc/kubernetes/ssl
-    scp &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.pem root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt;:/etc/kubernetes/ssl
-    scp &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.kubeconfig token.csv audit-policy.yaml root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt;:/etc/kubernetes
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; chown &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; kube:kube /etc/kubernetes/ssl
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 分发 Etcd 证书&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;IP &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;seq 8 9&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /etc/etcd/ssl
-    scp &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.pem root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt;:/etc/etcd/ssl
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; chmod &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; 644 /etc/etcd/ssl/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
-    ssh root@10.10.1.&lt;span class=&quot;nv&quot;&gt;$IP&lt;/span&gt; chmod 755 /etc/etcd/ssl
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;42修改-node-配置&quot;&gt;4.2、修改 Node 配置&lt;/h4&gt;
-
-&lt;p&gt;Node 上只需要修改 kubelet 和 kube-proxy 的配置即可&lt;/p&gt;
-
-&lt;h5 id=&quot;config-通用配置&quot;&gt;config 通用配置&lt;/h5&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;###&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# kubernetes system config&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# The following values are used to configure various aspects of all&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# kubernetes services, including&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#   kube-apiserver.service&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#   kube-controller-manager.service&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#   kube-scheduler.service&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#   kubelet.service&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#   kube-proxy.service&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# logging to stderr means we get it in the systemd journal&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_LOGTOSTDERR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--logtostderr=true&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# journal message level, 0 is debug&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_LOG_LEVEL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--v=2&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Should this cluster be allowed to run privileged docker containers&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_ALLOW_PRIV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--allow-privileged=true&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# How the controller-manager, scheduler, and proxy find the apiserver&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# KUBE_MASTER=&quot;--master=http://127.0.0.1:8080&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;kubelet-配置&quot;&gt;kubelet 配置&lt;/h5&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;###&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# kubernetes kubelet (minion) config&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# The address for the info server to serve on (set to 0.0.0.0 or &quot;&quot; for all interfaces)&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBELET_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--address=10.10.1.8&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# The port for the info server to serve on&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# KUBELET_PORT=&quot;--port=10250&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# You may leave this blank to use the actual hostname&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBELET_HOSTNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--hostname-override=docker4.node&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# location of the api-server&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# KUBELET_API_SERVER=&quot;&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Add your own!&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBELET_ARGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--cgroup-driver=cgroupfs &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --cluster-dns=10.254.0.2 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --resolv-conf=/etc/resolv.conf &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --experimental-bootstrap-kubeconfig=/etc/kubernetes/bootstrap.kubeconfig &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --kubeconfig=/etc/kubernetes/kubelet.kubeconfig &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --fail-swap-on=false &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --cert-dir=/etc/kubernetes/ssl &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --cluster-domain=cluster.local. &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --hairpin-mode=promiscuous-bridge &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --serialize-image-pulls=false &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --pod-infra-container-image=gcr.io/google_containers/pause-amd64:3.0&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;注意: kubelet 配置与 1.7 版本有一定改动&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;增加 &lt;code class=&quot;highlighter-rouge&quot;&gt;--fail-swap-on=false&lt;/code&gt; 选项，否则可能导致在开启 swap 分区的机器上无法启动 kubelet，详细可参考 &lt;a href=&quot;https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#before-upgrading&quot;&gt;CHANGELOG&lt;/a&gt;(before-upgrading 第一条)&lt;/li&gt;
-  &lt;li&gt;移除 &lt;code class=&quot;highlighter-rouge&quot;&gt;--require-kubeconfig&lt;/code&gt; 选项，已经过时废弃&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;proxy-配置&quot;&gt;proxy 配置&lt;/h5&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;###&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# kubernetes proxy config&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# default config should be adequate&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Add your own!&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBE_PROXY_ARGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--bind-address=10.10.1.8 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                 --hostname-override=docker4.node &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                 --kubeconfig=/etc/kubernetes/kube-proxy.kubeconfig &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-                 --cluster-cidr=10.254.0.0/16&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;kube-proxy 配置与 1.7 并无改变，最新 1.8 的 ipvs 模式将单独写一篇文章，这里不做介绍&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;43创建-nginx-代理&quot;&gt;4.3、创建 Nginx 代理&lt;/h4&gt;
-
-&lt;p&gt;由于 HA 方案基于 Nginx 反代实现，所以每个 Node 要启动一个 Nginx 负载均衡 Master，具体参考 &lt;a href=&quot;https://mritd.me/2017/07/21/set-up-kubernetes-ha-cluster-by-binary/#41ha-master-%E7%AE%80%E8%BF%B0&quot;&gt;HA Master 简述&lt;/a&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;nginxconf&quot;&gt;nginx.conf&lt;/h5&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 创建配置目录&lt;/span&gt;
-mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /etc/nginx
-
-&lt;span class=&quot;c&quot;&gt;# 写入代理配置&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &amp;gt;&amp;gt; /etc/nginx/nginx.conf
-error_log stderr notice;
-
-worker_processes auto;
-events {
-  multi_accept on;
-  use epoll;
-  worker_connections 1024;
-}
-
-stream {
-    upstream kube_apiserver {
-        least_conn;
-        server 10.10.1.5:6443;
-        server 10.10.1.6:6443;
-        server 10.10.1.7:6443;
-    }
-
-    server {
-        listen        0.0.0.0:6443;
-        proxy_pass    kube_apiserver;
-        proxy_timeout 10m;
-        proxy_connect_timeout 1s;
-    }
-}
-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF
-
-&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# 更新权限&lt;/span&gt;
-chmod +r /etc/nginx/nginx.conf
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;nginx-proxyservice&quot;&gt;nginx-proxy.service&lt;/h5&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &amp;gt;&amp;gt; /etc/systemd/system/nginx-proxy.service
-[Unit]
-Description=kubernetes apiserver docker wrapper
-Wants=docker.socket
-After=docker.service
-
-[Service]
-User=root
-PermissionsStartOnly=true
-ExecStart=/usr/bin/docker run -p 127.0.0.1:6443:6443 \\
-                              -v /etc/nginx:/etc/nginx \\
-                              --name nginx-proxy \\
-                              --net=host \\
-                              --restart=on-failure:5 \\
-                              --memory=512M \\
-                              nginx:1.13.5-alpine
-ExecStartPre=-/usr/bin/docker rm -f nginx-proxy
-ExecStop=/usr/bin/docker stop nginx-proxy
-Restart=always
-RestartSec=15s
-TimeoutStartSec=30s
-
-[Install]
-WantedBy=multi-user.target
-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;最后启动 Nginx 代理即可&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;systemctl daemon-reload
-systemctl start nginx-proxy
-systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;nginx-proxy
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;44添加-node&quot;&gt;4.4、添加 Node&lt;/h4&gt;
-
-&lt;p&gt;一切准备就绪后就可以添加 Node 了，首先由于我们采用了 &lt;a href=&quot;https://kubernetes.io/docs/admin/kubelet-tls-bootstrapping/&quot;&gt;TLS Bootstrapping&lt;/a&gt;，所以需要先创建一个 ClusterRoleBinding&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 在任意 master 执行即可&lt;/span&gt;
-kubectl create clusterrolebinding kubelet-bootstrap &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--clusterrole&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;system:node-bootstrapper &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;kubelet-bootstrap
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;然后启动 kubelet&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;systemctl daemon-reload
-systemctl start kubelet
-systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;kubelet
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;由于采用了 TLS Bootstrapping，所以 kubelet 启动后不会立即加入集群，而是进行证书申请，从日志中可以看到如下输出&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;10月 06 19:53:23 docker4.node kubelet[3797]: I1006 19:53:23.917261    3797 bootstrap.go:57] Using bootstrap kubeconfig to generate TLS client cert, key and kubeconfig file
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;此时只需要在 master 允许其证书申请即可&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get csr | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;Pending | awk &lt;span class=&quot;s1&quot;&gt;'{print $1}'&lt;/span&gt; | xargs kubectl certificate approve
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;此时可以看到 Node 已经加入了&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker1.node ➜  ~ kubectl get node
-NAME           STATUS    ROLES     AGE       VERSION
-docker4.node   Ready     &amp;lt;none&amp;gt;    14m       v1.8.0
-docker5.node   Ready     &amp;lt;none&amp;gt;    3m        v1.8.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;最后再启动 kube-proxy 即可&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;systemctl start kube-proxy
-systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;kube-proxy
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;再次提醒: 如果 kubelet 启动出现了类似 &lt;code class=&quot;highlighter-rouge&quot;&gt;system:node:xxxx&lt;/code&gt; 用户没有权限访问 API 的 RBAC 错误，那么一定是 API Server 授权控制器、准入控制配置有问题，请仔细阅读上面的文档进行更改&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;45master-作为-node&quot;&gt;4.5、Master 作为 Node&lt;/h4&gt;
-
-&lt;p&gt;如果想讲 Master 也作为 Node 的话，请在 Master 上安装 kubernete-node rpm 包，配置与上面基本一致；&lt;strong&gt;区别于 Master 上不需要启动 nginx 做负载均衡，同时 &lt;code class=&quot;highlighter-rouge&quot;&gt;bootstrap.kubeconfig&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;kube-proxy.kubeconfig&lt;/code&gt; 中的 API Server 地址改成当前 Master IP 即可。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;最终成功后如下图所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/c4dde.jpg&quot; alt=&quot;cluster success&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;五部署-calico&quot;&gt;五、部署 Calico&lt;/h3&gt;
-
-&lt;h4 id=&quot;51修改-calico-配置&quot;&gt;5.1、修改 Calico 配置&lt;/h4&gt;
-
-&lt;p&gt;Calico 部署仍然采用 “混搭” 方式，即 Systemd 控制 calico node，cni 等由 kubernetes daemonset 安装，具体请参考 &lt;a href=&quot;https://mritd.me/2017/07/31/calico-yml-bug/&quot;&gt;Calico 部署踩坑记录&lt;/a&gt;，以下直接上代码&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 获取 calico.yaml&lt;/span&gt;
-wget https://docs.projectcalico.org/v2.6/getting-started/kubernetes/installation/hosted/calico.yaml
-
-&lt;span class=&quot;c&quot;&gt;# 替换 Etcd 地址&lt;/span&gt;
-sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s@.*etcd_endpoints:.*@\ \ etcd_endpoints:\ \&quot;https://10.10.1.5:2379,https://10.10.1.6:2379,https://10.10.1.7:2379\&quot;@gi'&lt;/span&gt; calico.yaml
-
-&lt;span class=&quot;c&quot;&gt;# 替换 Etcd 证书&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ETCD_CERT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /etc/etcd/ssl/etcd.pem | base64 | tr &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ETCD_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /etc/etcd/ssl/etcd-key.pem | base64 | tr &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ETCD_CA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /etc/etcd/ssl/etcd-root-ca.pem | base64 | tr &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-
-sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;s@.*etcd-cert:.*@&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\ \ &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;etcd-cert:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ETCD_CERT&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@gi&quot;&lt;/span&gt; calico.yaml
-sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;s@.*etcd-key:.*@&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\ \ &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;etcd-key:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ETCD_KEY&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@gi&quot;&lt;/span&gt; calico.yaml
-sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;s@.*etcd-ca:.*@&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\ \ &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;etcd-ca:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ETCD_CA&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@gi&quot;&lt;/span&gt; calico.yaml
-
-sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s@.*etcd_ca:.*@\ \ etcd_ca:\ &quot;/calico-secrets/etcd-ca&quot;@gi'&lt;/span&gt; calico.yaml
-sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s@.*etcd_cert:.*@\ \ etcd_cert:\ &quot;/calico-secrets/etcd-cert&quot;@gi'&lt;/span&gt; calico.yaml
-sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s@.*etcd_key:.*@\ \ etcd_key:\ &quot;/calico-secrets/etcd-key&quot;@gi'&lt;/span&gt; calico.yaml
-
-&lt;span class=&quot;c&quot;&gt;# 注释掉 calico-node 部分(由 Systemd 接管)&lt;/span&gt;
-sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'103,189s@.*@#&amp;amp;@gi'&lt;/span&gt; calico.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;52创建-systemd-文件&quot;&gt;5.2、创建 Systemd 文件&lt;/h4&gt;
-
-&lt;p&gt;上一步注释了 &lt;code class=&quot;highlighter-rouge&quot;&gt;calico.yaml&lt;/code&gt; 中 Calico Node 相关内容，为了防止自动获取 IP 出现问题，将其移动到 Systemd，Systemd service 配置如下，&lt;strong&gt;每个节点都要安装 calico-node 的 Service&lt;/strong&gt;，其他节点请自行修改 ip(被问我为啥是两个反引号 &lt;code class=&quot;highlighter-rouge&quot;&gt;\\&lt;/code&gt;，自己试就知道了)&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /usr/lib/systemd/system/calico-node.service &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
-[Unit]
-Description=calico node
-After=docker.service
-Requires=docker.service
-
-[Service]
-User=root
-PermissionsStartOnly=true
-ExecStart=/usr/bin/docker run   --net=host --privileged --name=calico-node \\
-                                -e ETCD_ENDPOINTS=https://10.10.1.5:2379,https://10.10.1.6:2379,https://10.10.1.7:2379 \\
-                                -e ETCD_CA_CERT_FILE=/etc/etcd/ssl/etcd-root-ca.pem \\
-                                -e ETCD_CERT_FILE=/etc/etcd/ssl/etcd.pem \\
-                                -e ETCD_KEY_FILE=/etc/etcd/ssl/etcd-key.pem \\
-                                -e NODENAME=docker1.node \\
-                                -e IP=10.10.1.5 \\
-                                -e IP6= \\
-                                -e AS= \\
-                                -e CALICO_IPV4POOL_CIDR=10.20.0.0/16 \\
-                                -e CALICO_IPV4POOL_IPIP=always \\
-                                -e CALICO_LIBNETWORK_ENABLED=true \\
-                                -e CALICO_NETWORKING_BACKEND=bird \\
-                                -e CALICO_DISABLE_FILE_LOGGING=true \\
-                                -e FELIX_IPV6SUPPORT=false \\
-                                -e FELIX_DEFAULTENDPOINTTOHOSTACTION=ACCEPT \\
-                                -e FELIX_LOGSEVERITYSCREEN=info \\
-                                -v /etc/etcd/ssl/etcd-root-ca.pem:/etc/etcd/ssl/etcd-root-ca.pem \\
-                                -v /etc/etcd/ssl/etcd.pem:/etc/etcd/ssl/etcd.pem \\
-                                -v /etc/etcd/ssl/etcd-key.pem:/etc/etcd/ssl/etcd-key.pem \\
-                                -v /var/run/calico:/var/run/calico \\
-                                -v /lib/modules:/lib/modules \\
-                                -v /run/docker/plugins:/run/docker/plugins \\
-                                -v /var/run/docker.sock:/var/run/docker.sock \\
-                                -v /var/log/calico:/var/log/calico \\
-                                quay.io/calico/node:v2.6.1
-ExecStop=/usr/bin/docker rm -f calico-node
-Restart=always
-RestartSec=10
-
-[Install]
-WantedBy=multi-user.target
-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;53修改-kubelet-配置&quot;&gt;5.3、修改 kubelet 配置&lt;/h4&gt;
-
-&lt;p&gt;根据官方文档要求 &lt;code class=&quot;highlighter-rouge&quot;&gt;kubelet&lt;/code&gt; 配置必须增加 &lt;code class=&quot;highlighter-rouge&quot;&gt;--network-plugin=cni&lt;/code&gt; 选项，所以需要修改 kubelet 配置&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;###&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# kubernetes kubelet (minion) config&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# The address for the info server to serve on (set to 0.0.0.0 or &quot;&quot; for all interfaces)&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBELET_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--address=10.10.1.5&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# The port for the info server to serve on&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# KUBELET_PORT=&quot;--port=10250&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# You may leave this blank to use the actual hostname&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBELET_HOSTNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--hostname-override=docker1.node&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# location of the api-server&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# KUBELET_API_SERVER=&quot;&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Add your own!&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KUBELET_ARGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--cgroup-driver=cgroupfs &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --network-plugin=cni &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --cluster-dns=10.254.0.2 &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --resolv-conf=/etc/resolv.conf &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --experimental-bootstrap-kubeconfig=/etc/kubernetes/bootstrap.kubeconfig &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --kubeconfig=/etc/kubernetes/kubelet.kubeconfig &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --fail-swap-on=false &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --cert-dir=/etc/kubernetes/ssl &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --cluster-domain=cluster.local. &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --hairpin-mode=promiscuous-bridge &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --serialize-image-pulls=false &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
-              --pod-infra-container-image=gcr.io/google_containers/pause-amd64:3.0&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;然后重启即可&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;systemctl daemon-reload
-systemctl restart kubelet
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;此时执行 &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl get node&lt;/code&gt; 会看到 Node 为 &lt;code class=&quot;highlighter-rouge&quot;&gt;NotReady&lt;/code&gt; 状态，属于正常情况&lt;/p&gt;
-
-&lt;h4 id=&quot;54创建-calico-daemonset&quot;&gt;5.4、创建 Calico Daemonset&lt;/h4&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 先创建 RBAC&lt;/span&gt;
-kubectl apply &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; https://docs.projectcalico.org/v2.6/getting-started/kubernetes/installation/rbac.yaml
-
-&lt;span class=&quot;c&quot;&gt;# 再创建 Calico Daemonset&lt;/span&gt;
-kubectl create &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; calico.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;55创建-calico-node&quot;&gt;5.5、创建 Calico Node&lt;/h4&gt;
-
-&lt;p&gt;Calico Node 采用 Systemd 方式启动，在每个节点配置好 Systemd service后，&lt;strong&gt;每个节点修改对应的 &lt;code class=&quot;highlighter-rouge&quot;&gt;calico-node.service&lt;/code&gt; 中的 IP 和节点名称，然后启动即可&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;systemctl daemon-reload
-systemctl restart calico-node
-sleep 5
-systemctl restart kubelet
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;此时检查 Node 应该都处于 Ready 状态&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/agxp3.jpg&quot; alt=&quot;Node Ready&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;最后测试一下跨主机通讯&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 创建 deployment&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt; &amp;gt;&amp;gt; demo.deploy.yml
-apiVersion: apps/v1beta2
-kind: Deployment
-metadata:
-  name: demo-deployment
-spec:
-  replicas: 5
-  selector:
-    matchLabels:
-      app: demo
-  template:
-    metadata:
-      labels:
-        app: demo
-    spec:
-      containers:
-      - name: demo
-        image: mritd/demo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 80
-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF
-&lt;/span&gt;kubectl create &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; demo.deploy.yml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;进入其中一个 Pod，ping 另一个 Pod 的 IP 测试即可&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/00krx.jpg&quot; alt=&quot;Test Calico&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;六部署-dns&quot;&gt;六、部署 DNS&lt;/h3&gt;
-
-&lt;h4 id=&quot;61部署集群-dns&quot;&gt;6.1、部署集群 DNS&lt;/h4&gt;
-
-&lt;p&gt;DNS 组件部署非常简单，直接创建相应的 deployment 等即可；但是有一个事得说一嘴，Kubernets 一直在推那个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Addon Manager&lt;/code&gt; 的工具来管理 DNS 啥的，文档说的条条是道，就是不希望我们手动搞这些东西，防止意外修改云云… 但问题是关于那个 &lt;code class=&quot;highlighter-rouge&quot;&gt;Addon Manager&lt;/code&gt; 咋用一句没提，虽然说里面就一个小脚本，看看也能懂；但是我还是选择手动 😌… 还有这个 DNS 配置文件好像又挪地方了，以前在 &lt;code class=&quot;highlighter-rouge&quot;&gt;contrib&lt;/code&gt; 项目下的…&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 获取文件&lt;/span&gt;
-wget https://raw.githubusercontent.com/kubernetes/kubernetes/master/cluster/addons/dns/kube-dns.yaml.sed
-mv kube-dns.yaml.sed kube-dns.yaml
-
-&lt;span class=&quot;c&quot;&gt;# 修改配置&lt;/span&gt;
-sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s/$DNS_DOMAIN/cluster.local/gi'&lt;/span&gt; kube-dns.yaml
-sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s/$DNS_SERVER_IP/10.254.0.2/gi'&lt;/span&gt; kube-dns.yaml
-
-&lt;span class=&quot;c&quot;&gt;# 创建&lt;/span&gt;
-kubectl create &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; kube-dns.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;创建好以后如下所示&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/vg95n.jpg&quot; alt=&quot;DNS&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;然后创建两组 Pod 和 Service，进入 Pod 中 curl 另一个 Service 名称看看是否能解析；同时还要测试一下外网能否解析&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/x185c.jpg&quot; alt=&quot;Test DNS1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;测试外网&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/3k9gz.jpg&quot; alt=&quot;Test DNS2&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;62部署-dns-自动扩容部署&quot;&gt;6.2、部署 DNS 自动扩容部署&lt;/h4&gt;
-
-&lt;p&gt;这个同样下载 yaml，然后创建一下即可，不需要修改任何配置&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget https://raw.githubusercontent.com/kubernetes/kubernetes/master/cluster/addons/dns-horizontal-autoscaler/dns-horizontal-autoscaler.yaml
-kubectl create &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; dns-horizontal-autoscaler.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;部署完成后如下&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mritd.b0.upaiyun.com/markdown/mid1u.jpg&quot; alt=&quot;DNS autoscaler&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;自动扩容这里不做测试了，虚拟机吃不消了，详情自己参考 &lt;a href=&quot;https://kubernetes.io/docs/tasks/administer-cluster/dns-horizontal-autoscaling/&quot;&gt;Autoscale the DNS Service in a Cluster&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;kube-proxy ipvs 下一篇写，坑有点多，虽然搞定了，但是一篇写有点囫囵吞枣，后来想一想还是分开吧&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">目前 Kubernetes 1.8.0 已经发布，1.8.0增加了很多新特性，比如 kube-proxy 组建的 ipvs 模式等，同时 RBAC 授权也做了一些调整，国庆没事干，所以试了一下；以下记录了 Kubernetes 1.8.0 的搭建过程</summary></entry><entry><title type="html">Ceph 笔记(二)</title><link href="http://0.0.0.0/2017/05/30/ceph-note-2/" rel="alternate" type="text/html" title="Ceph 笔记(二)" /><published>2017-05-30T23:39:29+08:00</published><updated>2017-05-30T23:39:29+08:00</updated><id>http://0.0.0.0/2017/05/30/ceph-note-2</id><content type="html" xml:base="http://0.0.0.0/2017/05/30/ceph-note-2/">&lt;blockquote&gt;
-  &lt;p&gt;本篇文章主要简述了 Ceph 的存储对象名词解释及其含义，以及对 Ceph 集群内 CRUSH bucket 调整、PG/PGP 参数调整等设置；同时参考了一些书籍资料简单的概述一下 Ceph 集群硬件要求等&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;一ceph-组件及定义&quot;&gt;一、Ceph 组件及定义&lt;/h3&gt;
-
-&lt;h4 id=&quot;11对象&quot;&gt;1.1、对象&lt;/h4&gt;
-
-&lt;p&gt;对象是 Ceph 中最小的存储单元，对象是一个数据和一个元数据绑定的整体；元数据中存放了具体数据的相关属性描述信息等；Ceph 为每个对象生成一个集群内唯一的对象标识符，以保证对象在集群内的唯一性；在传统文件系统的存储中，单个文件的大小是有一定限制的，而 Ceph 中对象随着其元数据区增大可以变得非常巨大&lt;/p&gt;
-
-&lt;h4 id=&quot;12crush&quot;&gt;1.2、CRUSH&lt;/h4&gt;
-
-&lt;p&gt;在传统的文件存储系统中，数据的元数据占据着极其重要的位置，每次系统中新增数据时，元数据首先被更新，然后才是实际的数据被写入；在较小的存储系统中(GB/TB)，这种将元数据存储在某个固定的存储节点或者磁盘阵列中的做法还可以满足需求；当数据量增大到 PB/ZB 级别时，元数据查找性能将会成为一个很大的瓶颈；同时元数据的统一存放还可能造成单点故障，即当元数据丢失后，实际数据将无法被找回；与传统文件存储系统不同的是，&lt;strong&gt;Ceph 使用可扩展散列下的受控复制(Controlled Replication Under Scalable Hashing,CRUSH)算法来精确地计算数据应该被写入哪里/从哪里读取；CRUSH按需计算元数据，而不是存储元数据，从而解决了传统文件存储系统的瓶颈&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;13crush-查找&quot;&gt;1.3、CRUSH 查找&lt;/h4&gt;
-
-&lt;p&gt;在 Ceph 中，元数据的计算和负载是分布式的，并且只有在需要时才会执行；元数据的计算过程称之为 CRUSH 查找，不同于其他分布式文件系统，Ceph 的 CRUSH 查找是由客户端使用自己的资源来完成的，从而去除了中心查找带来的性能以及单点故障问题；CRUSH 查找时，客户端先通过 monitor 获取集群 map 副本，然后从 map 副本中获取集群配置信息；然后通过对象信息、池ID等生成对象；接着通过对象和 PG 数散列后得到 Ceph 池中最终存放该对象的 PG；最终在通过 CRUSH 算法确定该 PG 所需存储的 OSD 位置，&lt;strong&gt;一旦确定了 OSD 位置，那么客户端将直接与 OSD 通讯完成数据读取与写入，这直接去除了中间环节，保证了性能的极大提升&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;14crush-层级结构&quot;&gt;1.4、CRUSH 层级结构&lt;/h4&gt;
-
-&lt;p&gt;在 Ceph 中，CRUSH 是完全支持各种基础设施和用户自定义的；CRUSH 设备列表中预先定义了一系列的设备，包括磁盘、节点、机架、行、开关、电源电路、房间、数据中心等等；这些组件称之为故障区(CRUSH bucket)，用户可以通过自己的配置把不同的 OSD 分布在不同区域；&lt;strong&gt;此后 Ceph 存储数据时根据 CRUSH bucket 结构，将会保证每份数据都会在所定义的物理组件之间完全隔离；&lt;/strong&gt;比如我们定义了多个机架上的不同 OSD，那么 Ceph 存储时就会智能的将数据副本分散到多个机架之上，防止某个机架上机器全部跪了以后数据全部丢失的情况&lt;/p&gt;
-
-&lt;h4 id=&quot;15恢复和再平衡&quot;&gt;1.5、恢复和再平衡&lt;/h4&gt;
-
-&lt;p&gt;当故障区内任何组件出现故障时，Ceph 都会将其标记为 down 和 out 状态；然后默认情况下 Ceph 会等待 300秒之后进行数据恢复和再平衡，这个值可以通过在配置文件中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;mon osd down out interval&lt;/code&gt; 参数来调整&lt;/p&gt;
-
-&lt;h4 id=&quot;16pg&quot;&gt;1.6、PG&lt;/h4&gt;
-
-&lt;p&gt;PG 是一组对象集合体，根据 Ceph 的复制级别，每个PG 中的数据会被复制到多个 OSD 上，以保证其高可用状态&lt;/p&gt;
-
-&lt;h4 id=&quot;17ceph-池&quot;&gt;1.7、Ceph 池&lt;/h4&gt;
-
-&lt;p&gt;Ceph 池是一个存储对象的逻辑分区，每一个池中都包含若干个 PG，进而实现将一定对象映射到集群内不同 OSD 中，&lt;strong&gt;池可以以复制方式或者纠错码方式创建，但不可同时使用这两种方式&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;二ceph-组件调整及操作&quot;&gt;二、Ceph 组件调整及操作&lt;/h3&gt;
-
-&lt;h4 id=&quot;21池操作&quot;&gt;2.1、池操作&lt;/h4&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 创建池&lt;/span&gt;
-rados mkpool test-pool
-&lt;span class=&quot;c&quot;&gt;# 列出池&lt;/span&gt;
-rados lspools
-&lt;span class=&quot;c&quot;&gt;# 复制池&lt;/span&gt;
-rados cppool test-pool cp-pool
-&lt;span class=&quot;c&quot;&gt;# 删除池&lt;/span&gt;
-rados rmpool test-pool test-pool &lt;span class=&quot;nt&quot;&gt;--yes-i-really-really-mean-it&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;22对象操作&quot;&gt;2.2、对象操作&lt;/h4&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 将对象加入到池内&lt;/span&gt;
-rados put testfile anaconda-ks.cfg &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 列出池内对象&lt;/span&gt;
-rados &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 检查对象信息&lt;/span&gt;
-ceph osd map &lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;testfile
-&lt;span class=&quot;c&quot;&gt;# 删除对象&lt;/span&gt;
-rados rm testfile &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;23修改-pg-和-pgp&quot;&gt;2.3、修改 PG 和 PGP&lt;/h4&gt;
-
-&lt;p&gt;计算 PG 数为 Ceph 企业级存储必不可少的的一部分，其中集群内 PG 计算公式如下&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PG 总数 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;OSD 数 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; 100&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; / 最大副本数
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;对于单个池来讲，我们还应该为池设定 PG 数，其中池的 PG 数计算公式如下&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PG 总数 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;OSD 数 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; 100&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; / 最大副本数 / 池数
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;PGP 是为了实现定位而设计的 PG，PGP 的值应该与 PG 数量保持一致；&lt;strong&gt;当池的 pg_num 增加的时候，池内所有 PG 都会一分为二，但是他们仍然保持着以前 OSD 的映射关系；当增加 pgp_num 的时候，Ceph 集群才会将 PG 进行 OSD 迁移，然后开始再平衡过程&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;获取现有 PG 和 PGP 值可以通过如下命令&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ceph osd pool get &lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;pg_num
-ceph osd pool get &lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;pgp_num
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;当计算好 PG 和 PGP 以后可以通过以下命令设置&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ceph osd pool &lt;span class=&quot;nb&quot;&gt;set test &lt;/span&gt;pgp_num 32
-ceph osd pool &lt;span class=&quot;nb&quot;&gt;set test &lt;/span&gt;pgp_num 32
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;同样在创建 pool 的时候也可以同步指定&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ceph osd pool create POOLNAME PG PGP
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;24pool-副本数调整&quot;&gt;2.4、pool 副本数调整&lt;/h4&gt;
-
-&lt;p&gt;默认情况，当创建一个新的 pool 时，向 pool 内存储的数据只会有 2 个副本，查看 pool 副本数可以通过如下命令&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ceph osd dump | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;pool
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;当我们需要修改默认副本数以使其满足高可靠性需求时，可以通过如下命令完成&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ceph osd pool &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;POOLNAME size NUM
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;25定制机群布局&quot;&gt;2.5、定制机群布局&lt;/h4&gt;
-
-&lt;p&gt;上面已经讲述了 CRUSH bucket 的概念，通过以下相关命令，我们可以定制自己的集群布局，以使 Ceph 完成数据的容灾处理&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 查看现有集群布局&lt;/span&gt;
-ceph osd tree
-&lt;span class=&quot;c&quot;&gt;# 添加机架&lt;/span&gt;
-ceph osd crush add-bucket rack01 rack
-ceph osd crush add-bucket rack02 rack
-ceph osd crush add-bucket rack03 rack
-&lt;span class=&quot;c&quot;&gt;# 移动主机到不同的机架(dockerX 为我的主机名)&lt;/span&gt;
-ceph osd crush move docker1 &lt;span class=&quot;nv&quot;&gt;rack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;rack01
-ceph osd crush move docker2 &lt;span class=&quot;nv&quot;&gt;rack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;rack02
-ceph osd crush move docker3 &lt;span class=&quot;nv&quot;&gt;rack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;rack03
-&lt;span class=&quot;c&quot;&gt;# 移动每个机架到默认的根下&lt;/span&gt;
-ceph osd crush move rack01 &lt;span class=&quot;nv&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;default
-ceph osd crush move rack02 &lt;span class=&quot;nv&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;default
-ceph osd crush move rack03 &lt;span class=&quot;nv&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;default
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;最终集群整体布局如下&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;➜  ~ ceph osd tree
-ID WEIGHT  TYPE NAME            UP/DOWN REWEIGHT PRIMARY-AFFINITY
-&lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt; 0.01469 root default
-&lt;span class=&quot;nt&quot;&gt;-5&lt;/span&gt; 0.00490     rack rack01
-&lt;span class=&quot;nt&quot;&gt;-2&lt;/span&gt; 0.00490         host docker1
- 0 0.00490             osd.0         up  1.00000          1.00000
-&lt;span class=&quot;nt&quot;&gt;-6&lt;/span&gt; 0.00490     rack rack02
-&lt;span class=&quot;nt&quot;&gt;-3&lt;/span&gt; 0.00490         host docker2
- 1 0.00490             osd.1         up  1.00000          1.00000
-&lt;span class=&quot;nt&quot;&gt;-7&lt;/span&gt; 0.00490     rack rack03
-&lt;span class=&quot;nt&quot;&gt;-4&lt;/span&gt; 0.00490         host docker3
- 2 0.00490             osd.2         up  1.00000          1.00000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;三ceph-硬件配置&quot;&gt;三、Ceph 硬件配置&lt;/h3&gt;
-
-&lt;p&gt;硬件规划一般是一个企业级存储的必要工作，以下简述了 Ceph 的一般硬件需求&lt;/p&gt;
-
-&lt;h4 id=&quot;31监控需求&quot;&gt;3.1、监控需求&lt;/h4&gt;
-
-&lt;p&gt;Ceph monitor 通过维护整个集群的 map 从而完成集群的健康处理；但是 monitor 并不参与实际的数据存储，所以实际上 monitor 节点 CPU 占用、内存占用都比较少；一般单核 CPU 加几个 G 的内存即可满足需求；虽然 monitor 节点不参与实际存储工作，但是 monitor 的网卡至少应该是冗余的，因为一旦网络出现故障则集群健康会难以保证&lt;/p&gt;
-
-&lt;h4 id=&quot;32osd-需求&quot;&gt;3.2、OSD 需求&lt;/h4&gt;
-
-&lt;p&gt;OSD 作为 Ceph 集群的主要存储设施，其会占用一定的 CPU 和内存资源；一般推荐做法是每个节点的每块硬盘作为一个 OSD；同时 OSD 还需要写入日志，所以应当为 OSD 集成日志留有充足的空间；在出现故障时，OSD 需求的资源可能会更多，所以 OSD 节点根据实际情况(每个 OSD 会有一个线程)应该分配更多的 CPU 和内存；固态硬盘也会增加 OSD 存取速度和恢复速度&lt;/p&gt;
-
-&lt;h4 id=&quot;33mds-需求&quot;&gt;3.3、MDS 需求&lt;/h4&gt;
-
-&lt;p&gt;MDS 服务专门为 CephFS 存储元数据，所以相对于 monitor 和 OSD 节点，这个 MDS 节点的 CPU 需求会大得多，同时内存占用也是海量的，所以 MDS 一般会使用一个强劲的物理机单独搭建&lt;/p&gt;
-
-&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">本篇文章主要简述了 Ceph 的存储对象名词解释及其含义，以及对 Ceph 集群内 CRUSH bucket 调整、PG/PGP 参数调整等设置；同时参考了一些书籍资料简单的概述一下 Ceph 集群硬件要求等</summary></entry><entry><title type="html">docker registry</title><link href="http://0.0.0.0/2016/12/23/docker-registry/" rel="alternate" type="text/html" title="docker registry" /><published>2016-12-23T21:16:52+08:00</published><updated>2016-12-23T21:16:52+08:00</updated><id>http://0.0.0.0/2016/12/23/docker-registry</id><content type="html" xml:base="http://0.0.0.0/2016/12/23/docker-registry/">&lt;p&gt;关于私有仓库配置docker官网给出的参考示例 其实已经很详尽了，但是还是不免在配置过程中 踩坑。这里根据官网文档整理了配置示例供大家参考！&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;host文件&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-192.168.11.10   hub.test.io 
-192.168.11.20   node1
-192.168.11.30   node2
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;时间同步分别执行&quot;&gt;时间同步(分别执行)：&lt;/h3&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# yum install -y ntpdate &amp;amp;&amp;amp; ntpdate cn.pool.ntp.org&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# yum install -y ntpdate &amp;amp;&amp;amp; ntpdate cn.pool.ntp.org&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# crontab -l&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/5 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; ntpdate cn.pool.ntp.org
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;1仓库服务端设置-hubtestio&quot;&gt;1.仓库服务端设置 hub.test.io：&lt;/h2&gt;
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# docker pull registry&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# cat /etc/hosts   //内网没有DNS情况下修改hosts,修改主机名&lt;/span&gt;
-127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
-::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-192.168.11.10 hub.test.io
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub ~]# hostname    
-hub.test.io
-说明：如果私有仓库用的不是域名而是IP，请加上此设置：
-- &lt;span class=&quot;c&quot;&gt;# sed -i '/^\[ v3_ca \]$/a subjectAltName = IP:192.168.10.10' /etc/ssl/openssl.cnf&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# mkdir /opt/registry &amp;amp;&amp;amp; cd /opt/registry&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# mkdir auth certs
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# docker run &lt;span class=&quot;nt&quot;&gt;--entrypoint&lt;/span&gt; htpasswd registry:latest &lt;span class=&quot;nt&quot;&gt;-Bbn&lt;/span&gt; username password &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; auth/htpasswd  //自行更换用户名密码
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;auth/htpasswd   // 下面一行为空，切记不要修改生成后的文件
-admin:&lt;span class=&quot;nv&quot;&gt;$2y$05$LSRMXpIbnvnj8ErzbRvKq&lt;/span&gt;.F04Qf3oajP7dFWQIjJBrFAoDXKM1I16
-
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# openssl req &lt;span class=&quot;nt&quot;&gt;-newkey&lt;/span&gt; rsa:4096 &lt;span class=&quot;nt&quot;&gt;-nodes&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-sha256&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-keyout&lt;/span&gt; certs/ca.key &lt;span class=&quot;nt&quot;&gt;-x509&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-days&lt;/span&gt; 365 &lt;span class=&quot;nt&quot;&gt;-out&lt;/span&gt; certs/ca.crt
-Generating a 4096 bit RSA private key
-........
-........
-....++writing new private key to certs/ca.key
-&lt;span class=&quot;nt&quot;&gt;-----&lt;/span&gt;
-You are about to be asked to enter information that will be incorporated
-into your certificate request.
-What you are about to enter is what is called a Distinguished Name or a DN.
-There are quite a few fields but you can leave some blank
-For some fields there will be a default value,
-If you enter &lt;span class=&quot;s1&quot;&gt;'.'&lt;/span&gt;, the field will be left blank.
-&lt;span class=&quot;nt&quot;&gt;-----&lt;/span&gt;
-Country Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2 letter code&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;XX]:
-State or Province Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;full name&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:
-Locality Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, city&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Default City]:
-Organization Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, company&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Default Company Ltd]:
-Organizational Unit Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, section&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:
-Common Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, your name or your servers hostname&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:hub.test.io
-Email Address &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /etc/docker/certs.d/hub.test.io &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; cp certs/ca.crt /etc/docker/certs.d/hub.test.io
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; /etc/docker/certs.d/hub.test.io/
-ca.crt
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# systemctl daemon-reload &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; systemctl restart docker
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;start.sh
-&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 443:5000 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; registry &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;--restart&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;always &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /var/lib/registry:/var/lib/registry &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;/auth:/auth &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;REGISTRY_AUTH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;htpasswd &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;REGISTRY_AUTH_HTPASSWD_REALM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Registry Realm&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;REGISTRY_AUTH_HTPASSWD_PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/auth/htpasswd &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;/certs:/certs &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;REGISTRY_HTTP_TLS_CERTIFICATE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/certs/ca.crt &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;REGISTRY_HTTP_TLS_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/certs/ca.key &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-registry:latest
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# tree   //最终的目录结构
-&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-├── auth
-│   └── htpasswd
-├── certs
-│   ├── ca.crt
-│   └── ca.key
-└── start.sh
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# docker login hub.test.io
-Username: admin
-Password: 
-Login Succeeded
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# docker tag pause-amd64:3.0 hub.test.io/pause-amd64:3.0
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@hub registry]# docker push hub.test.io/pause-amd64:3.0
-The push refers to a repository &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;hub.test.io/pause-amd64]
-5f70bf18a086: Pushed 
-41ff149e94f2: Pushed 
-3.0: digest: sha256:ec6581792f828ab138bc7ed65205dbd4d7df966249179b7afbb9f6cac729771b size: 939
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h2 id=&quot;客户端&quot;&gt;客户端：&lt;/h2&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.仓库配置:
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# mkdir /etc/docker/certs.d/hub.test.io &lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# scp hub.test.io:/etc/docker/certs.d/hub.test.io/ca.crt /etc/docker/certs.d/hub.test.io&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;### 或者通过添加仓库地址配置: ###&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# vim /lib/systemd/system/docker.service&lt;/span&gt;
-.....
-&lt;span class=&quot;nt&quot;&gt;--insecure-registry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hub.test.io&quot;&lt;/span&gt;
-.....
-
-2.登陆仓库并下载镜像：
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# docker login hub.test.io&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@node1 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# docker pull hub.test.io/pause-amd64:3.0&lt;/span&gt;
-3.0: Pulling from pause-amd64
-a3ed95caeb02: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;f11233434377: Pull &lt;span class=&quot;nb&quot;&gt;complete 
-&lt;/span&gt;Digest: sha256:ec6581792f828ab138bc7ed65205dbd4d7df966249179b7afbb9f6cac729771b
-Status: Downloaded newer image &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;hub.test.io/pause-amd64:3.0
-至此私有仓库就搭建完成了
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;更多配置详解 请查看 &lt;a href=&quot;https://docs.docker.com/registry/&quot;&gt;Docker官方registry配置文档&lt;/a&gt;&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">关于私有仓库配置docker官网给出的参考示例 其实已经很详尽了，但是还是不免在配置过程中 踩坑。这里根据官网文档整理了配置示例供大家参考！</summary></entry></feed>
+&lt;p&gt;转载请注明出处，本文采用 &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-nd/4.0/&quot;&gt;CC4.0&lt;/a&gt; 协议授权&lt;/p&gt;</content><author><name>Jevic</name></author><summary type="html">Kubernetes 1.8 发布已经好几天，1.8 对于 kube-proxy 组件增加了 ipvs 支持，以下记录一下 kube-proxy ipvs 开启教程</summary></entry></feed>
