@@ -28,9 +28,3 @@ permalink: /about/
       <source id="ogv" src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">
       <p>Your user agent does not support the HTML5 Video element.</p>
 </video>
-
-<audio  autoplay="autoplay">
-  <source src="https://mritd.b0.upaiyun.com/markdown/music_see_you_again.mp3" type="audio/mpeg" />
-Your browser does not support the audio element.
-</audio>
-

@@ -166,6 +166,7 @@ compose:一个用于创建容器组的容器编排工具</p>
 </blockquote>
 
 <h2 id="内核升级-centos-721511-core">内核升级 CentOS 7.2.1511 (Core)</h2>
+
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.升级内核需要使用 elrepo 的yum 源首先我们导入 elrepo 的key
 rpm <span class="nt">--import</span> https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 
@@ -183,9 +184,6 @@ reboot
 uname <span class="nt">-r</span> 
 
 </code></pre></div></div>
-
-<h2 id="docker">Docker</h2>
-<p><a href="https://docs.docker.com/engine/installation/linux/centos/">Docker Docs</a></p>
 
 <h3 id="install">install</h3>
 
@@ -231,10 +229,10 @@ docker <span class="nt">--help</span>
 <span class="o">[</span>root@docker ~]# docker stop id
 <span class="o">[</span>root@docker ~]# docker start id
 <span class="o">[</span>root@docker ~]# docker inspect mytest   【检查容器运行状态信息】
-<span class="o">[</span>root@docker ~]# docker inspect <span class="nt">-f</span>    ID
+
 
 <span class="o">[</span>root@docker ~]# docker stats testssh   【实时查看Container负载】
-<span class="o">[</span>root@docker ~]# docker stats <span class="k">$(</span>docker ps <span class="nt">--format</span><span class="o">=</span><span class="s1">''</span><span class="k">)</span>
+
 
 <span class="o">[</span>root@docker ~]# docker logs <span class="nt">-f</span> mysql
 
@@ -327,6 +325,7 @@ docker run <span class="nt">-d</span> <span class="nt">-P</span> <span class="nt
 </code></pre></div></div>
 
 <h3 id="存储驱动">存储驱动</h3>
+
 <ul>
   <li>http://cloud.51cto.com/art/201412/461261.htm</li>
   <li><a href="https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/#image-layering-and-sharing">Device-mapper 存储驱动</a></li>
@@ -368,10 +367,11 @@ Ubuntu:
 
 </code></pre></div></div>
 
-<h2 id="compose"><a href="https://docs.docker.com/compose/install/">Compose</a></h2>
+<h2 id="扩展阅读">扩展阅读</h2>
 <ul>
+  <li><a href="https://docs.docker.com/compose/install/">Compose</a></li>
   <li>https://docs.docker.com/compose/compose-file/#versioning</li>
-  <li>https://docs.docker.com/compose/networking/#using-a-pre-existing-network   // 扩展网络设置</li>
+  <li>https://docs.docker.com/compose/networking/#using-a-pre-existing-network</li>
   <li><a href="https://docs.docker.com/engine/swarm/">Swarm Mode</a></li>
   <li><a href="https://shipyard-project.com/">Shipyard</a></li>
 </ul>
@@ -422,9 +422,9 @@ Ubuntu:
 
 <ul id="search_results"></ul>
 
-<link rel="stylesheet" type="text/css" href="https://mritd.b0.upaiyun.com/assets/css/modules/sidebar-search.css">
-<script src="https://mritd.b0.upaiyun.com/assets/js/lunr.min.js"></script>
-<script src="https://mritd.b0.upaiyun.com/assets/js/search.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/modules/sidebar-search.css">
+<script src="/assets/js/lunr.min.js"></script>
+<script src="/assets/js/search.js"></script>
 
     
 <h3>Post Directory</h3>
@@ -436,7 +436,7 @@ Ubuntu:
   </section>
 </div>
 
-<script src="https://mritd.b0.upaiyun.com/assets/js/jquery.toc.js"></script>
+<script src="/assets/js/jquery.toc.js"></script>
 
   </div>
 </div>

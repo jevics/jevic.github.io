@@ -35,7 +35,9 @@ kubernetes:一个管理容器组的工具，具有先进的调度能力
 compose:一个用于创建容器组的容器编排工具
  
 
+
 ## 内核升级 CentOS 7.2.1511 (Core)
+
 ``` sh
 1.升级内核需要使用 elrepo 的yum 源首先我们导入 elrepo 的key
 rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
@@ -54,11 +56,6 @@ reboot
 uname -r 
 
 ```
-
-
-## Docker
-[Docker Docs](https://docs.docker.com/engine/installation/linux/centos/
-)
 
 ### install
 
@@ -108,10 +105,10 @@ docker --help
 [root@docker ~]# docker stop id
 [root@docker ~]# docker start id
 [root@docker ~]# docker inspect mytest   【检查容器运行状态信息】
-[root@docker ~]# docker inspect -f {{   }}   ID
+
 
 [root@docker ~]# docker stats testssh   【实时查看Container负载】
-[root@docker ~]# docker stats $(docker ps --format='{{.Names}}')
+
 
 [root@docker ~]# docker logs -f mysql
 
@@ -207,6 +204,7 @@ docker run -d -P --name=web --link mysql:db centos:7 /bin/bash
 ```
 
 ### 存储驱动
+
 * http://cloud.51cto.com/art/201412/461261.htm
 * [Device-mapper 存储驱动](https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/#image-layering-and-sharing
 )
@@ -248,9 +246,11 @@ DOCKER_OPTS="-H unix:///var/run/docker.sock -H 0.0.0.0:2375"
 
 ```
 
-## [Compose](https://docs.docker.com/compose/install/)
+## 扩展阅读 
+- [Compose](https://docs.docker.com/compose/install/)
 - https://docs.docker.com/compose/compose-file/#versioning
-- https://docs.docker.com/compose/networking/#using-a-pre-existing-network   // 扩展网络设置
+- https://docs.docker.com/compose/networking/#using-a-pre-existing-network
 - [Swarm Mode](https://docs.docker.com/engine/swarm/)
 - [Shipyard](https://shipyard-project.com/)
+
 
