@@ -1,8 +1,7 @@
 # Jevics
 
-## Travis CI [![Build Status](https://travis-ci.org/mritd/mritd.github.io.svg?branch=master)](https://travis-ci.org/mritd/mritd.github.io)
+> 之前使用Hexo 搭建了一个博客,最近改为了使用jekyll
+> 随带把之前零散的东西整理了一遍
+> 博客主页
 
-> 使用jekyll搭建的一个免费博客，作为镜像托管在Github上
->
-> 博客主站点 
-
+- www.jevic.cn
